@@ -1,0 +1,265 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #34495E;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #2C3E50;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon {
+    font-size: 24px;
+    color: #f5f5f5;
+    cursor: pointer;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-section {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    padding: 10px 15px;
+    width: 25%;
+    position: relative;
+}
+
+.search-bar input {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.search-icon {
+    font-size: 20px;
+    color: #34495E;
+}
+
+.filter-container {
+    position: relative;
+}
+
+.filter-icon {
+    font-size: 20px;
+    color: #34495E;
+    cursor: pointer;
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: none;
+    z-index: 1000;
+}
+
+.filter-dropdown .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.filter-dropdown .dropdown-content {
+    padding: 10px;
+}
+
+.filter-category {
+    margin-bottom: 10px;
+}
+
+.filter-category h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #34495E;
+}
+
+.filter-category label {
+    display: block;
+    margin: 5px 0;
+}
+
+.filter-category input {
+    margin-right: 10px;
+}
+
+.dropdown-toggle {
+    font-size: 14px;
+}
+
+.filter-container:hover .filter-dropdown {
+    display: block;
+}
+.event-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.event-box {
+    background-color: #E67E22;
+    color: #f5f5f5;
+    padding: 15px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.map-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px;
+    flex-grow: 1;
+}
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.map-header h3 {
+    margin: 0;
+    color: #34495E;
+}
+
+.map-header button {
+    background-color: #E67E22;
+    color: #f5f5f5;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.map-view {
+    background-color: #e0e0e0;
+    height: 300px; /* Ajusta la altura del mapa según sea necesario */
+    border-radius: 8px;
+    overflow: hidden; /* Asegura que el iframe se ajuste al contenedor */
+}
+
+
+footer {
+    background-color: #2C3E50;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+}
+
+
+.main-events {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.main-events h2 {
+    margin-top: 0;
+    color: #34495E;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.events-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+}
+
+.event-card {
+    background-color: #f5f5f5;
+    overflow: hidden;
+    width: 300px;
+    position: relative;
+    text-align: center;
+}
+
+.event-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #E67E22;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.event-content {
+    padding: 15px;
+}
+
+.event-content h3 {
+    margin: 0;
+    color: #34495E;
+}
+
+.event-content p {
+    margin: 5px 0;
+}
+
+.event-content button {
+    background-color: #E67E22;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.event-content button:hover {
+    background-color: #d95d1e;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catamarca Eventos - Home</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ </head>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <i class="fas fa-bars icon"></i>
+        </div>
+        <div class="header-right">
+            <i class="fas fa-bell icon"></i>
+            <i class="fas fa-user icon"></i>
+        </div>
+    </header>
+
+    <div class="search-section">
+        <h2>Catamarca Eventos</h2>
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Buscar eventos">
+            <div class="filter-container">
+                <i class="fas fa-filter filter-icon"></i>
+                <div class="filter-dropdown">
+                    <div class="dropdown-header">
+                        <span>Filtros</span>
+                        <i class="fas fa-chevron-down dropdown-toggle"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <div class="filter-category">
+                            <h4>Por Fecha</h4>
+                            <label><input type="checkbox"> Hoy</label>
+                            <label><input type="checkbox"> Esta semana</label>
+                            <label><input type="checkbox"> Este mes</label>
+                        </div>
+                        <div class="filter-category">
+                            <h4>Por Categoría</h4>
+                            <label><input type="checkbox"> Música</label>
+                            <label><input type="checkbox"> Teatro y Danza</label>
+                            <label><input type="checkbox"> Festivales</label>
+                            <label><input type="checkbox"> Ferias</label>
+                            <label><input type="checkbox"> Talleres</label>
+                            <label><input type="checkbox"> Gastronomía</label>
+                            <label><input type="checkbox"> Cine</label>
+                            <label><input type="checkbox"> Literatura</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="event-options">
+        <div class="event-box">HOY</div>
+        <div class="event-box">MAÑANA</div>
+        <div class="event-box">ESTA SEMANA</div>
+    </div>
+
+    <div class="map-section">
+        <div class="map-header">
+            <h3>Eventos Cerca</h3>
+            <button>Abrir Mapa</button>
+        </div>
+        <div class="map-view">
+            <!-- Código de inserción de Google Maps -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26767.72388513005!2d-65.806906511845!3d-28.468812761453486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94242872b9d04179%3A0x4a6a20e7df55d12b!2sSan%20Fernando%20del%20Valle%20de%20Catamarca%2C%20Catamarca%2C%20Argentina!5e0!3m2!1ses!2sar!4v1693233311458!5m2!1ses!2sar" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+    <div class="main-events">
+        <h2>Próximos Eventos Principales</h2>
+        <div class="events-cards">
+            <div class="event-card">
+                <div class="event-image">
+                    <img src="img/rcitales-baires-2024-1024x683.jpg" alt="Evento 1">
+                    <div class="event-tag">Recital</div>
+                </div>
+                <div class="event-content">
+                    <h3>Evento 1</h3>
+                    <p><strong>Fecha:</strong> 1 de Septiembre 2024</p>
+                    <p><strong>Ubicación:</strong> Teatro Municipal</p>
+                    <button>Ver más detalles</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image">
+                    <img src="img/cine_alternativo-1-1024x631.jpg" alt="Evento 2">
+                    <div class="event-tag">Cine</div>
+                </div>
+                <div class="event-content">
+                    <h3>Evento 2</h3>
+                    <p><strong>Fecha:</strong> 5 de Septiembre 2024</p>
+                    <p><strong>Ubicación:</strong> Cine Catamarca</p>
+                    <button>Ver más detalles</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image">
+                    <img src="img/obra-teatro.jpg" alt="Evento 3">
+                    <div class="event-tag">Teatro</div>
+                </div>
+                <div class="event-content">
+                    <h3>Evento 3</h3>
+                    <p><strong>Fecha:</strong> 10 de Septiembre 2024</p>
+                    <p><strong>Ubicación:</strong> Cineteatro Catamarca</p>
+                    <button>Ver más detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Catamarca Eventos. Todos los derechos reservados.</p>
+    </footer>
+  
+</body>
+</html>

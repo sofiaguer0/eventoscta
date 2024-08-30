@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #34495E;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+header {
+    background-color: #2C3E50;
+    color: #f5f5f5;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.registro-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    
+        
+}
+
+h2 {
+    margin-bottom: 30px;
+    color: #34495E;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.btn-registrate {
+    background-color: #E67E22;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.separator {
+    margin: 15px 0;
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.btn-google {
+    background-color: #DB4437;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-left: 50px;
+}
+
+.btn-google img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+footer {
+    background-color: #2C3E50;
+    color: #f5f5f5;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
