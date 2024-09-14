@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catamarca Eventos - Agregar Evento</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<header>
+    <h1>Catamarca Eventos</h1>
+</header>
+
+<body>
+    <div class="registro-container">
+        <h2>Agrega tu evento cultural</h2>
+        <form enctype="multipart/form-data">
+            <input type="hidden" id="eventId" value="0">
+
+            <!-- Título del Evento -->
+
+            <input type="text" id="titulo" placeholder="Título del evento" required>
+
+            <!-- Tipo de Evento -->
+
+            <select id="tipo" class="select" required>
+                <option value="" disabled selected>Selecciona el tipo de evento</option>
+                <option value="musica">Música</option>
+                <option value="teatro_danza">Teatro y Danza</option>
+                <option value="festivales">Festivales</option>
+                <option value="ferias">Ferias</option>
+                <option value="talleres">Talleres</option>
+                <option value="gastronomia">Gastronomía</option>
+                <option value="cine">Cine</option>
+                <option value="literatura">Literatura</option>
+                <option value="otros">Otros</option>
+            </select>
+
+            <!-- Fecha del Evento -->
+
+            <input type="date" id="fecha" class="select" required>
+
+            <!-- Horario del Evento -->
+
+            <div class="horario-container" class="select">
+                de <input type="time" id="horarioDesde" placeholder="Desde" required>
+                hasta <input type="time" id="horarioHasta" placeholder="Hasta" required>
+            </div>
+
+            <!-- Lugar del Evento -->
+
+            <input type="text" id="lugar" class="select" placeholder="Lugar del evento" required>
+
+            <!-- Descripción -->
+
+            <textarea class="select" id="descripcion" rows="4" placeholder="Descripción del evento" required></textarea>
+
+            <!-- Flyer del Evento -->
+
+            <input class="select" type="file" id="flyer" accept="image/*" required>
+
+            <!-- Fecha de Publicación -->
+
+            <input class="select" type="date" id="fechaPublicacion" required>
+
+            <!-- Link del Evento -->
+
+            <input class="select" type="url" id="linkEvento" placeholder="https://ejemplo.com" required>
+
+            <!-- Botón para enviar -->
+            <button type="submit" class="btn-registrate">Agregar Evento</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; Todos los derechos reservados Catamarca Eventos</p>
+    </footer>
+
+    <script src="agregar.js"></script>
+</body>
+
+</html>
