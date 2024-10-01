@@ -11,7 +11,13 @@ btnGuardarCambios.addEventListener("click", async () => {
     let clientecontrasenaParaActualizar = txtcontrasena.value;
 
     /* aqui armo un objeto literal */
-    let clienteParaActualizar = { txtIdusuario: clienteidParaActualizar, txtnombre: clientenombreParaActualizar, txtapellido: clienteapellidoParaActualizar, txtcorreo: clientecorreoParaActualizar, txtalias: clientealiasParaActualizar , txtcontrasena: clientecontrasenaParaActualizar  };
+    let clienteParaActualizar = {
+        nombre: clientenombreParaActualizar,
+        apellido: clienteapellidoParaActualizar,
+        correo: clientecorreoParaActualizar,
+        alias: clientealiasParaActualizar,
+        contrasena: clientecontrasenaParaActualizar
+    };
 
     /* Previo a Insertar / actualizar se debería verificar que el CUIT sea válido, que el nombre no esté vacio, etc */
 
@@ -33,7 +39,7 @@ btnGuardarCambios.addEventListener("click", async () => {
 const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
 
     try {
-        let URLEndPoint = `http://localhost:3000/usuario/`; // Apunto al End Point Correspondiente
+        let URLEndPoint = `http://localhost:3000/usuario1/`; // Apunto al End Point Correspondiente
 
         /* Creo las Opciones del Fetch */
         const OpcionesDelFetch = {
@@ -52,7 +58,7 @@ const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
         {
             if (Datos.result_rows > 0) // Si devolvió mas de un registro
             {
-                fnMostrarProducto(Datos.result_data); // muestro el cliente completo invocando a la función correspondiente y pasandole como parametro el cliente        
+                fnActualizarCliente(Datos.result_data); // muestro el cliente completo invocando a la función correspondiente y pasandole como parametro el cliente        
             }
         }
         else {
@@ -63,3 +69,9 @@ const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
         alert(`Se produjo un error en el FRONT END: => ${error.message}`); // Si se produjo un error en el FRONTEND lo muestro
     }
 }
+
+
+
+
+
+  

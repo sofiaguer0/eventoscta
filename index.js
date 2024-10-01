@@ -3,10 +3,13 @@ const ClaseExpress = require("express"); // aqui importo la biblioteca express
 const ServidorWeb = ClaseExpress(); // aqui instancio un obj a partir de la clase express
 
 
+
 ServidorWeb.use(ClaseExpress.static("frontend"));
 ServidorWeb.use(ClaseExpress.json());
 ServidorWeb.use(ClaseExpress.text());
 ServidorWeb.use(ClaseExpress.urlencoded({ extended: false }));
+
+
 
 const { Pool } = require("pg");
 
@@ -26,9 +29,12 @@ module.exports = { ConexionDB };
 //USUARIO GET
 
 
-ServidorWeb.get("/usuario/:ID", async (req, res) => {
+
+
+
+ServidorWeb.get("/usuario1/:ID", async (req, res) => {
     const ID = req.params.ID;
-    let SQL = 'select * from usuario where idusuario = $1';
+    let SQL = 'select * from usuario1 where idusuario = $1';
     let Resultado = '';
 
     try {
@@ -175,11 +181,11 @@ ServidorWeb.get("/usuarioalias/", async (req, res) => {
 //POST USUARIO//////////////////////77///////////////////////
 
 
-ServidorWeb.post("/usuario/",async(req,res)=>
+ServidorWeb.post("/usuario1/",async(req,res)=>
     {
         const {nombre,apellido,correo,alias,contrasena} = req.body;
-    
-        let SQL = 'insert into usuario (nombre,apellido,correo,alias,contrasena) values ($1,$2,$3,$4,$5) returning *';
+
+        let SQL = 'insert into usuario1 (nombre,apellido,correo,alias,contrasena) values ($1,$2,$3,$4,$5) returning *';
     
         let Resultado = '';
     
@@ -212,8 +218,7 @@ ServidorWeb.post("/usuario/",async(req,res)=>
     
 
 
-
-
+ 
 
 
 

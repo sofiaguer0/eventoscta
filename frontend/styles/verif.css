@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #34495E;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 80px auto; /* Esto centrará el elemento horizontalmente */
+    display: flex;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.user-icon i {
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+.content h1 {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+.instruction {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.code-input {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.code-input input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    border: 2px solid #2c3e50;
+    border-radius: 5px;
+    color: #2c3e50;
+    outline: none;
+}
+
+.verify-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #e67e22;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.verify-btn:hover {
+    background-color: #d35400;
+}
+
+.sms-link {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.sms-link:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos generales para el contenedor */
+.container {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 80px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Espaciado entre los elementos de la sección del correo */
+#email-step .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#email-step h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#email-step p.instruction {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666; /* Un tono gris suave */
+    line-height: 1.5; /* Para mejorar la legibilidad */
+}
+
+#email-step input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.verify-btn {
+    background-color: #E67E22;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.verify-btn:hover {
+    background-color: #d95d1e;
+}

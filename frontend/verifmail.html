@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Correo Electrónico</title>
+    <link rel="stylesheet" href="styles/verif.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-left"></div>
+        <h2>Catamarca Eventos</h2>
+        <div class="header-right">
+            <i class="fas fa-user icon"></i>
+        </div>
+    </header>
+
+    <!-- Primera pantalla: Solicitar correo electrónico -->
+    <div class="container" id="email-step">
+        <div class="content">
+            <h1>Ingresa tu Correo Electrónico</h1>
+            <p class="instruction">Por favor, ingresa tu dirección de correo electrónico para verificarla.</p>
+            <input type="email" id="email" placeholder="correo@example.com" required>
+            <button class="verify-btn" onclick="sendVerificationCode()">Siguiente</button>
+        </div>
+    </div>
+
+    <!-- Segunda pantalla: Solicitar código de verificación -->
+    <div class="container" id="code-step" style="display:none;">
+        <div class="content">
+            <h1>Verifica tu Correo Electrónico</h1>
+            <p class="instruction">Escribe el número de 6 dígitos que enviamos a tu dirección de correo electrónico.</p>
+            <div class="code-input">
+                <input type="text" maxlength="1" id="digit-1">
+                <input type="text" maxlength="1" id="digit-2">
+                <input type="text" maxlength="1" id="digit-3">
+                <input type="text" maxlength="1" id="digit-4">
+                <input type="text" maxlength="1" id="digit-5">
+                <input type="text" maxlength="1" id="digit-6">
+            </div>
+            <button class="verify-btn" onclick="verifyCode()">Verificar</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Catamarca Eventos. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="controladores/verification.js"></script>
+</body>
+</html>
