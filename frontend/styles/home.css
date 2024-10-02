@@ -416,3 +416,21 @@ body {
     margin-top: 60px; /* Ajustar según el tamaño del header */
 }
 
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#nombre-usuario {
+    font-weight: bold;
+    color: #d95d1e;
+
+}
+
+#sesion-iniciada {
+    color: green;
+    font-size: 14px;
+}
+

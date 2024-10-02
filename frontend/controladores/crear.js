@@ -72,6 +72,36 @@ const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
 
 
 
+document.getElementById('registroForm').addEventListener('submit', function (event) {
+    event.preventDefault();
 
+    const data = {
+        nombre: document.getElementById('txtnombre').value,
+        apellido: document.getElementById('txtapellido').value,
+        correo: document.getElementById('txtcorreo').value,
+        alias: document.getElementById('txtalias').value,
+        contrasena: document.getElementById('txtcontrasena').value
+    };
+
+    fetch('http://localhost:3000/usuario1/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Verifica el contenido de la respuesta del servidor
+        if (data.result_estado === 'ok') {
+            alert('Cuenta creada exitosamente. Inicia sesión ahora.');
+            console.log('Redirigiendo a la página de inicio de sesión');
+            window.location.replace('iniciarsesion.html'); // Intentamos con replace
+        } else {
+            alert(data.result_message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
 
   

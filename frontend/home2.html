@@ -17,10 +17,12 @@
         <h2>Catamarca Eventos</h2>
         <div class="header-right">
             <i class="fas fa-bell icon"></i>
-            <a href="iniciarsesion.html">
+            <div class="user-info">
                 <i class="fas fa-user icon"></i>
-            </a>
+                <span id="nombre-usuario">Juan Pérez</span> <!-- Ejemplo del nombre -->
+                <button id="cerrar-sesion" style="margin-left: 10px;">Cerrar Sesión</button>
 
+            </div>
         </div>
     </header>
 
@@ -32,8 +34,8 @@
                 <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
                 <li><a href="#"><i class="fas fa-calendar"></i>Calendario</a></li>
                 <li><a href="#"><i class="fas fa-tags"></i>Categorías</a></li>
-                <li><a href="#"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
-                <li><a href="#"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
+                <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
+                <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
             </ul>
         </nav>
     </div>
@@ -165,6 +167,34 @@
             sidebar.classList.toggle('active');
             content.classList.toggle('shifted');
         });
+
+        const aliasUsuario = localStorage.getItem('aliasUsuario');
+
+        // Verificar si hay un alias almacenado
+        if (aliasUsuario) {
+            document.getElementById('nombre-usuario').textContent = aliasUsuario; // Muestra el alias almacenado
+        } else {
+            document.getElementById('nombre-usuario').textContent = 'Invitado'; // Muestra 'Invitado' si no hay alias
+        }
+
+
+        function mostrarAlias() {
+            const aliasUsuario = localStorage.getItem('aliasUsuario');
+            if (aliasUsuario) {
+                document.getElementById('nombre-usuario').textContent = aliasUsuario;
+            } else {
+                document.getElementById('nombre-usuario').textContent = 'Invitado';
+            }
+        }
+
+        // Evento para cerrar sesión
+        document.getElementById('cerrar-sesion').addEventListener('click', function () {
+            localStorage.removeItem('aliasUsuario'); // Elimina el alias del localStorage
+            mostrarAlias(); // Actualiza el nombre de usuario
+        });
+
+        // Llamar a la función al cargar la página
+        mostrarAlias();
     </script>
 </body>
 
