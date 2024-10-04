@@ -1,0 +1,436 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #34495E;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #2C3E50;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.icon {
+    font-size: 24px;
+    color: #f5f5f5;
+    cursor: pointer;
+}
+
+h2 {
+    color: #f5f5f5;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-right: 30px;
+}
+.search-section {
+    display: flex;
+    justify-content: center; /* Centra los elementos en el medio del contenedor */
+    align-items: center; /* Alinea verticalmente al centro */
+    gap: 20px; /* Espacio entre la barra de búsqueda y el ícono de filtros */
+
+}
+
+.search-bar {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido dentro de la barra de búsqueda */
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    padding: 10px 15px;
+    width: 300px; /* Ajusta el ancho según sea necesario */
+    position: relative;
+}
+
+.search-bar input {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%; /* Ocupa todo el espacio disponible dentro de la barra de búsqueda */
+    margin-left: 10px; /* Espacio entre el ícono de búsqueda y el input */
+}
+
+.search-icon {
+    font-size: 20px;
+    color: #34495E;
+}
+
+.filter-container {
+    position: relative;
+}
+
+.filter-icon {
+    font-size: 20px;
+    color: #34495E;
+    cursor: pointer;
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: none;
+    z-index: 1000;
+}
+
+.filter-dropdown .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.filter-dropdown .dropdown-content {
+    padding: 10px;
+}
+
+.filter-category {
+    margin-bottom: 10px;
+}
+
+.filter-category h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #34495E;
+}
+
+.filter-category label {
+    display: block;
+    margin: 5px 0;
+}
+
+.filter-category input {
+    margin-right: 10px;
+}
+
+.dropdown-toggle {
+    font-size: 14px;
+}
+
+.filter-container:hover .filter-dropdown {
+    display: block;
+}
+.event-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.event-box {
+    position: relative; /* Para que el texto pueda estar sobre la imagen */
+    width: 250px;
+    height: 250px;
+    overflow: hidden; /* Asegura que la imagen no se desborde */
+}
+
+.event-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene la proporción de la imagen */
+    transition: transform 0.3s ease; /* Animación para el efecto hover */
+}
+
+.event-box span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #f5f5f5;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    z-index: 1; /* Asegura que el texto esté encima de la imagen */
+}
+
+.event-box:hover img {
+    transform: scale(1.1); /* Aumenta el tamaño de la imagen al pasar el mouse */
+}
+
+
+.map-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px;
+    flex-grow: 1;
+}
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.map-header h3 {
+    margin: 0;
+    color: #34495E;
+}
+
+.map-header button {
+    background-color: #E67E22;
+    color: #f5f5f5;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.map-view {
+    background-color: #e0e0e0;
+    height: 300px; /* Ajusta la altura del mapa según sea necesario */
+    border-radius: 8px;
+    overflow: hidden; /* Asegura que el iframe se ajuste al contenedor */
+}
+
+
+footer {
+    background-color: #2C3E50;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+    
+}
+
+/* Estilos generales del body */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: margin-left 0.3s ease;
+}
+
+
+
+/* Icono de menú (hamburguesa) */
+.icon {
+    cursor: pointer;
+    font-size: 24px;
+}
+
+/* Estilo para el logo */
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Estilo para el menú lateral */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Ocultar inicialmente */
+    background-color: #2C3E50;
+    padding-top: 20px;
+    transition: left 0.3s ease;
+    z-index: 90; /* Asegura que el menú esté encima del contenido */
+    margin-top: 40px;
+}
+
+.sidebar li {
+
+    margin: 10px;
+}
+
+
+.sidebar a {
+
+    margin: 5px;
+}
+
+.sidebar.active {
+    left: 0; /* Aparece cuando se activa */
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    padding: 10px;
+    text-align: left;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex; /* Para que el tamaño del enlace se expanda con el contenido */
+    align-items: center; /* Alinear el texto y el ícono verticalmente */
+    padding: 10px 20px; /* Ajuste de padding */
+    width: 100%;
+    box-sizing: border-box; /* Asegura que el padding no afecte al ancho total */
+    transition: background-color 0.3s ease, padding-left 0.2s ease-in-out;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #34495E;
+    padding-left: 20px;
+    transition: padding-left 0.2s ease-in-out;
+    
+}
+
+/* Contenido principal */
+.content {
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Ajuste del margen cuando el menú esté activo */
+.sidebar.active ~ .content.shifted {
+    margin-left: 250px; /* Ajusta el margen del contenido para que no quede oculto */
+}
+
+/* Otros estilos para la sección de búsqueda, opciones de eventos, mapa, etc. */
+.search-section, .event-options, .map-section, .main-events {
+    margin-top: 60px; /* Ajustar según el tamaño del header */
+}
+
+.main-events {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+
+.main-events h2 {
+    margin-top: 0;
+    color: #34495E;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.events-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+}
+
+.event-card {
+    background-color: #f5f5f5;
+    overflow: hidden;
+    width: 300px;
+    position: relative;
+    text-align: center;
+}
+
+.event-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #E67E22;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.event-content {
+    padding: 15px;
+}
+
+.event-content h3 {
+    margin: 0;
+    color: #34495E;
+}
+
+.event-content p {
+    margin: 5px 0;
+}
+
+.event-content button {
+    background-color: #E67E22;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.event-content button:hover {
+    background-color: #d95d1e;
+}
+
+
+/* Estilo para los íconos dentro de los enlaces */
+.sidebar nav ul li a i {
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+    transition: color 0.3s ease; /* Transición suave para el color del ícono */
+    font-size: 20px; /* Ajuste del tamaño del ícono */
+}
+
+/* Cambiar el color del ícono cuando el enlace está en hover */
+.sidebar nav ul li a:hover i {
+    color: #ffffff; /* Cambiar el color del ícono en hover */
+}
+
+/* Contenido principal */
+.content {
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Ajuste del margen cuando el menú esté activo */
+.sidebar.active ~ .content.shifted {
+    margin-left: 250px; /* Ajusta el margen del contenido para que no quede oculto */
+}
+
+/* Otros estilos para la sección de búsqueda, opciones de eventos, mapa, etc. */
+.search-section, .event-options, .map-section, .main-events {
+    margin-top: 60px; /* Ajustar según el tamaño del header */
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#nombre-usuario {
+    font-weight: bold;
+    color: #d95d1e;
+
+}
+
+#sesion-iniciada {
+    color: green;
+    font-size: 14px;
+}
+
