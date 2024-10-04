@@ -23,7 +23,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
 
     
             alert("Inicio de sesión correcto");
-            window.location.href = 'home2.html'; // Redirigir a la página de inicio
+            window.location.href = 'preferencias.html'; // Redirigir a la página de inicio
         } else {
             alert(data.result_message);
         }

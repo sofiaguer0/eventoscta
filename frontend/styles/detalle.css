@@ -46,9 +46,6 @@
     margin-top: 20px;
 }
 
-header h2 {
-    color: #f5f5f5;
-}
 
 /* Estilo para el menú lateral */
 .sidebar {
@@ -122,4 +119,20 @@ header h2 {
 /* Otros estilos para la sección de búsqueda, opciones de eventos, mapa, etc. */
 .search-section, .event-options, .map-section, .main-events {
     margin-top: 60px; /* Ajustar según el tamaño del header */
+}
+
+h2 {
+    color: #f5f5f5;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-right: 30px;
 }

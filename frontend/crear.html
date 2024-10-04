@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catamarca Eventos - Crear Cuenta</title>
+    <title>Crear Cuenta</title>
+    <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/styles.css">
+
+
+
+
 </head>
 
-    <header>
-        <h1>Catamarca Eventos</h1>
-    </header>
+<header>
+    <div class="header-left">
+        <i class="fas fa-bars icon" id="menu-icon"></i>
+    </div>
+    <h2>Catamarca Eventos</h2>
+    <div class="header-right">
+        <i class="fas fa-bell icon"></i>
+        <a href="iniciarsesion.html">
+            <i class="fas fa-user icon"></i>
+        </a>
+
+    </div>
+</header>
     <body>
         <main>
     <div class="registro-container">
@@ -22,6 +37,7 @@
             <input type="text" id="txtalias" placeholder="Nombre de Usuario" required>
             <input type="password" id="txtcontrasena" placeholder="Contraseña" required>
             <button type="submit" id="btnGuardarCambios" class="btn-registrate">Regístrate</button>
+            <p style="margin-top: 10px;">Tenes cuenta? <a href="iniciarsesion.html">Inicia sesion</a></p>
           
 
         </form>

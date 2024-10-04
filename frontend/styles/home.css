@@ -434,3 +434,61 @@ body {
     font-size: 14px;
 }
 
+
+.carousel-container {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: 100%; /* Ensures one item is visible at a time */
+    position: relative;
+    text-align: center;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 250px; /* Ajusta el alto de la imagen */
+    object-fit: cover; /* Mantiene la proporción de aspecto */
+}
+
+.carousel-text {
+    position: absolute;
+    top: 50%; /* Posición del texto verticalmente centrado */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el texto en ambas direcciones */
+    color: white;
+    font-size: 36px; /* Aumentar el tamaño de la fuente para más visibilidad */
+    font-weight: bold; /* Hacer el texto más grueso */
+    padding: 10px 15px; /* Espaciado del texto */
+    border-radius: 8px; /* Bordes redondeados del fondo */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #d95d1e; /* Semi-transparent background */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 24px;
+    color: #f5f5f5;
+}
+
+.carousel-button.left {
+    left: 10px;
+}
+
+.carousel-button.right {
+    right: 10px;
+}

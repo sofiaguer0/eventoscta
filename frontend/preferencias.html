@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catamarca Eventos</title>
+    <link rel="stylesheet" href="styles/preferencias.css">
+    <link rel="stylesheet" href="styles/home.css">
+
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <i class="fas fa-bars icon" id="menu-icon"></i>
+        </div>
+        <h2>Catamarca Eventos</h2>
+        <div class="header-right">
+            <div class="user-info">
+                <i class="fas fa-user icon"></i>
+                <span id="nombre-usuario">Juan Pérez</span> <!-- Ejemplo del nombre -->
+                <button id="cerrar-sesion" style="margin-left: 10px; display: none;">Cerrar Sesión</button>
+
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú lateral -->
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
+                <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
+                <li><a href="calendar-20/index.html"><i class="fas fa-calendar"></i>Calendario</a></li>
+                <li><a href="#"><i class="fas fa-tags"></i>Categorías</a></li>
+                <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
+                <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container">
+        <h2>Catamarca Eventos</h2>
+        <p>Antes de empezar</p>
+
+        <p>Elige mínimo 3 eventos de tu preferencia para mostrarte contenido personalizado!</p>
+        <div class="grid-container">
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Música</p>
+                </div>
+                <img src="img/luces.jpg" alt="Música">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Teatro y Danza</p>
+                </div>
+                <img src="img/obra-teatro.jpg" alt="Teatro y Danza">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Festivales</p>
+                </div>
+                <img src="img/Patio-de-las-Provincias_02-2-scaled.jpg" alt="Festivales">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Ferias</p>
+                </div>
+                <img src="img/Capital-de-Catamarca.jpg" alt="Ferias">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Talleres</p>
+                </div>
+                <img src="img/taller-de-ceramica.jpg" alt="Talleres">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Gastronomía</p>
+                </div>
+                <img src="img/empanadas.jpg" alt="Gastronomía">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Cine</p>
+                </div>
+                <img src="img/cine_alternativo-1-1024x631.jpg" alt="Cine">
+            </div>
+            <div class="grid-item" data-selected="false">
+                <div class="overlay">
+                    <p>Literatura</p>
+                </div>
+                <img src="img/literatura.jpg" alt="Literatura">
+            </div>
+        </div>
+        <a href="home2.html">
+            <button type="submit" class="btn-registrate">Continuar</button>
+        </a>
+    </div>
+
+    <script>
+         document.querySelector('.fas.fa-bars').style.display = 'none';
+
+
+        document.querySelectorAll('.grid-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const isSelected = item.getAttribute('data-selected') === 'true';
+            item.setAttribute('data-selected', !isSelected);
+        });
+    });
+
+    const menuIcon = document.getElementById('menu-icon');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    menuIcon.addEventListener('click', function () {
+        sidebar.classList.toggle('active');
+        content.classList.toggle('shifted');
+    });
+
+    const aliasUsuario = localStorage.getItem('aliasUsuario');
+
+    // Verificar si hay un alias almacenado
+    if (aliasUsuario) {
+        document.getElementById('nombre-usuario').textContent = aliasUsuario; // Muestra el alias almacenado
+    } else {
+        document.getElementById('nombre-usuario').textContent = 'Invitado'; // Muestra 'Invitado' si no hay alias
+    }
+
+
+    function mostrarAlias() {
+        const aliasUsuario = localStorage.getItem('aliasUsuario');
+        if (aliasUsuario) {
+            document.getElementById('nombre-usuario').textContent = aliasUsuario;
+        } else {
+            document.getElementById('nombre-usuario').textContent = 'Invitado';
+        }
+    }
+
+    // Evento para cerrar sesión
+    document.getElementById('cerrar-sesion').addEventListener('click', function () {
+        localStorage.removeItem('aliasUsuario'); // Elimina el alias del localStorage
+        mostrarAlias(); // Actualiza el nombre de usuario
+    });
+
+    // Llamar a la función al cargar la página
+    mostrarAlias();
+</script>
+</body>
+<footer>
+    <p>&copy; 2024 Catamarca Eventos. Todos los derechos reservados.</p>
+</footer>
+</html>
