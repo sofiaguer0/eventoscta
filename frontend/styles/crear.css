@@ -1,0 +1,87 @@
+/* Estilos generales para el contenedor */
+.registro-container {
+    background-color: white;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo del título */
+.registro-container h2 {
+    font-size: 24px;
+    color: #34495e;
+    margin-bottom: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/* Estilos generales para los campos */
+.registro-container input[type="text"],
+.registro-container input[type="date"],
+.registro-container input[type="number"],
+.registro-container input[type="time"],
+.registro-container input[type="url"],
+.registro-container input[type="file"],
+.registro-container select,
+.registro-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo para el placeholder */
+.registro-container input::placeholder,
+.registro-container textarea::placeholder {
+    color: #999;
+}
+
+/* Estilo del botón */
+.btn-registrate {
+    background-color: #ff8000;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover en el botón */
+.btn-registrate:hover {
+    background-color: #e67300;
+}
+
+/* Estilo para que el formulario sea responsivo */
+@media (max-width: 768px) {
+    .registro-container {
+        width: 90%;
+        margin: 20px auto;
+    }
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #34495E;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main
+{
+    background-color: #f5f5f5;
+}

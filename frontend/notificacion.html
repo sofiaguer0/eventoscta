@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catamarca Eventos - Home</title>
+    <link rel="stylesheet" href="styles/notificacion.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <i class="fas fa-bars icon" id="menu-icon"></i>
+        </div>
+        <h2>Catamarca Eventos</h2>
+        <div class="header-right">
+            <i class="fas fa-bell icon"></i>
+            <div class="user-info">
+                <i class="fas fa-user icon"></i>
+                <span id="nombre-usuario">Juan Pérez</span> <!-- Ejemplo del nombre -->
+                <button id="cerrar-sesion" style="margin-left: 10px;">Cerrar Sesión</button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú lateral -->
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
+                <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
+                <li><a href="calendar-20/index.html"><i class="fas fa-calendar"></i>Calendario</a></li>
+                <li><a href="#"><i class="fas fa-map"></i>Explorar</a></li>
+                <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
+                <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="main-container" id="main-container">
+        <div class="notifications-container">
+            <div class="section">
+                <h2>Notificaciones</h2>
+                <p>Próximos eventos a notificar</p>
+
+                <!-- Evento 1 -->
+                <div class="event-card">
+                    <div class="event-info">
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>6 Jul</p>
+                        </div>
+                        <div class="event-details">
+                            <h3>Peña Solidaria</h3>
+                            <p>Av Belgrano 900</p>
+                            <p>15:30 - 20:00</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn ver-mas">Ver Más</button>
+                        <button class="btn notificar"><i class="fas fa-bell-slash"></i></button>
+                        <button class="btn borrar"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+                <!-- Evento 2 -->
+                <div class="event-card">
+                    <div class="event-info">
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>20 Jul</p>
+                        </div>
+                        <div class="event-details">
+                            <h3>Fiesta del Poncho</h3>
+                            <p>Predio Ferial</p>
+                            <p>15:30 - 20:00</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn ver-mas">Ver Más</button>
+                        <button class="btn notificar"><i class="fas fa-bell-slash"></i></button>
+                        <button class="btn borrar"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Eventos notificados anteriormente</h3>
+
+                <!-- Evento 3 -->
+                <div class="event-card notified">
+                    <div class="event-info">
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>3 Jul</p>
+                        </div>
+                        <div class="event-details">
+                            <h3>Feria de Emprendedores</h3>
+                            <p>Av Belgrano 900</p>
+                            <p>15:30 - 20:00</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn detalles">Detalles</button>
+                        <button class="btn borrar"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        menuIcon.addEventListener('click', function () {
+            sidebar.classList.toggle('active');
+            content.classList.toggle('shifted');
+        });
+
+        const aliasUsuario = localStorage.getItem('aliasUsuario');
+
+        // Verificar si hay un alias almacenado
+        if (aliasUsuario) {
+            document.getElementById('nombre-usuario').textContent = aliasUsuario; // Muestra el alias almacenado
+        } else {
+            document.getElementById('nombre-usuario').textContent = 'Invitado'; // Muestra 'Invitado' si no hay alias
+        }
+
+
+        function mostrarAlias() {
+            const aliasUsuario = localStorage.getItem('aliasUsuario');
+            if (aliasUsuario) {
+                document.getElementById('nombre-usuario').textContent = aliasUsuario;
+            } else {
+                document.getElementById('nombre-usuario').textContent = 'Invitado';
+            }
+        }
+
+        // Evento para cerrar sesión
+        document.getElementById('cerrar-sesion').addEventListener('click', function () {
+            localStorage.removeItem('aliasUsuario'); // Elimina el alias del localStorage
+            mostrarAlias(); // Actualiza el nombre de usuario
+        });
+
+        // Llamar a la función al cargar la página
+        mostrarAlias();
+
+        let currentIndex = 0;
+
+        function moveSlide(direction) {
+            const items = document.querySelectorAll('.carousel-item');
+            const totalItems = items.length;
+
+            currentIndex += direction;
+
+            if (currentIndex < 0) {
+                currentIndex = totalItems - 1; // Go to last item
+            } else if (currentIndex >= totalItems) {
+                currentIndex = 0; // Go to first item
+            }
+
+            const offset = -currentIndex * 100; // Calculate the offset
+            document.querySelector('.carousel').style.transform = `translateX(${offset}%)`;
+        }
+
+    </script>
+</body>
+<footer>
+    <p>&copy; 2024 Catamarca Eventos. Todos los derechos reservados.</p>
+</footer>
+
+</html>

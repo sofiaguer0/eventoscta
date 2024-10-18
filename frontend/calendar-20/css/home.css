@@ -434,3 +434,13 @@ body {
     font-size: 14px;
 }
 
+/* Contenido principal */
+.content {
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Ajuste del margen cuando el menú esté activo */
+.sidebar.active ~ .content.shifted {
+    margin-left: 250px; /* Ajusta el margen del contenido para que no quede oculto */
+}

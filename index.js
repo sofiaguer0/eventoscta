@@ -25,6 +25,46 @@ const ConexionDB = new Pool(
 
 module.exports = { ConexionDB };
 
+
+// EVENTO GET
+
+
+// EVENTO POST
+ServidorWeb.post("/evento", async (req, res) => {
+
+    const { titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento } = req.body;
+
+    let SQL = 'insert into evento (titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *';
+
+    let Resultado = '';
+
+    try {
+        Resultado = await ConexionDB.query(SQL, [titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento]);
+
+        Salida =
+        {
+            result_estado: 'ok',
+            result_message: 'Insertado',
+            result_rows: Resultado.rowCount,
+            result_proceso: 'POST',
+            result_data: Resultado.rows[0]
+        }
+
+    } catch (error) {
+        Salida =
+        {
+            result_estado: 'error',
+            result_message: error.message,
+            result_rows: 0,
+            result_proceso: 'POST',
+            result_data: ''
+        }
+    }
+    res.json(Salida);
+});
+
+
+
 // USUARIO GET
 
 ServidorWeb.get("/usuario1/:ID", async (req, res) => {
@@ -56,7 +96,7 @@ ServidorWeb.get("/usuario1/:ID", async (req, res) => {
     res.json(Salida);
 });
 
-// Otros GET de usuario...
+// POST de usuario...
 
 ServidorWeb.post("/usuario1/", async (req, res) => {
     const { nombre, apellido, correo, alias, contrasena } = req.body;

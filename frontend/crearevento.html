@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Evento</title>
-    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/crear.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 
 
@@ -29,84 +32,81 @@
         </div>
     </div>
 </header>
-<div class="sidebar" id="sidebar">
-    <nav>
-        <ul>
-            <li><a href="home2.html"><i class="fas fa-home"></i>Inicio</a></li>
-            <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
-            <li><a href="calendar-20/index.html"><i class="fas fa-calendar"></i>Calendario</a></li>
-            <li><a href="#"><i class="fas fa-tags"></i>Categorías</a></li>
-            <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
-            <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
-        </ul>
-    </nav>
-</div>
 
 <body>
-    <div class="registro-container">
-        <h2 class="h2titulo">Agrega tu evento cultural</h2>
-        <form enctype="multipart/form-data">
-            <input type="hidden" id="eventId" value="0">
+    <main>
+        <div class="sidebar" id="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="home2.html"><i class="fas fa-home"></i>Inicio</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
+                    <li><a href="calendar-20/index.html"><i class="fas fa-calendar"></i>Calendario</a></li>
+                    <li><a href="#"><i class="fas fa-tags"></i>Categorías</a></li>
+                    <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
+                    <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
+                </ul>
+            </nav>
+        </div>
 
-            <!-- Título del Evento -->
 
-            <input type="text" id="titulo" placeholder="Título del evento" required>
+        <div class="registro-container">
+            <h2>Crear Evento</h2>
+            <form id="registroForm">
+                <input type="hidden" id="txtIdevento" value="0">
+                <input type="text" id="txttitulo" name="titulo" placeholder="Título del evento" required>
 
-            <!-- Tipo de Evento -->
+                <textarea id="txtdescripcion" name="descripcion" rows="4" placeholder="Descripción" required></textarea>
+                <input type="text" id="txtlugar" name="lugar" placeholder="Lugar" required>
+           
+                <label for="inputPassword5" class="form-label">Fecha de Publicacion</label>
 
-            <select id="tipo" class="select" required>
-                <option value="" disabled selected>Selecciona el tipo de evento</option>
-                <option value="musica">Música</option>
-                <option value="teatro_danza">Teatro y Danza</option>
-                <option value="festivales">Festivales</option>
-                <option value="ferias">Ferias</option>
-                <option value="talleres">Talleres</option>
-                <option value="gastronomia">Gastronomía</option>
-                <option value="cine">Cine</option>
-                <option value="literatura">Literatura</option>
-                <option value="otros">Otros</option>
-            </select>
+                <input type="date" id="txtfechapublicacion" name="fechapublicacion" required>
+                
+                
 
-            <!-- Fecha del Evento -->
+                <select id="txttipo" class="select" required>
+                    <option value="" disabled selected>Selecciona el tipo de evento</option>
+                    <option value="musica">Música</option>
+                    <option value="teatro_danza">Teatro y Danza</option>
+                    <option value="festivales">Festivales</option>
+                    <option value="ferias">Ferias</option>
+                    <option value="talleres">Talleres</option>
+                    <option value="gastronomia">Gastronomía</option>
+                    <option value="cine">Cine</option>
+                    <option value="literatura">Literatura</option>
+                    <option value="otros">Otros</option>
+                </select>
 
-            <input type="date" id="fecha" class="select" required>
+                <input type="number" id="idusuario" name="idusuario" placeholder="ID Usuario" required>
+                <label for="inputPassword5" class="form-label">Hora Desde</label>
 
-            <!-- Horario del Evento -->
+                <input type="time" id="txthoradesde" name="horadesde" required>
+                <label for="inputPassword5" class="form-label">Hora Hasta</label>
 
-            <div class="horario-container" class="select">
-                de <input type="time" id="horarioDesde" placeholder="Desde" required>
-                hasta <input type="time" id="horarioHasta" placeholder="Hasta" required>
-            </div>
+                <input type="time" id="txthorahasta" name="horahasta" required>
 
-            <!-- Lugar del Evento -->
+                <input type="url" id="txtlinkevento" name="linkevento" placeholder="Link del evento">
+              
+                <label for="inputPassword5" class="form-label">Fecha del Evento</label>
 
-            <input type="text" id="lugar" class="select" placeholder="Lugar del evento" required>
+                <input type="date" id="txtfecha" name="fecha" required>
+                <label for="inputPassword5" class="form-label">Imagen</label>
 
-            <!-- Descripción -->
+                <div class="mb-3">
+                    <input class="form-control" type="file" id="formFile">
+                </div>
 
-            <textarea class="select" id="descripcion" rows="4" placeholder="Descripción del evento" required></textarea>
+                <button type="submit" id="btnGuardarCambios" class="btn-registrate">Crear Evento</button>
+            </form>
+        </div>
+    </main>
 
-            <!-- Flyer del Evento -->
-
-            <input class="select" type="file" id="flyer" accept="image/*" required>
-
-            <!-- Fecha de Publicación -->
-
-            <input class="select" type="date" id="fechaPublicacion" required>
-
-            <!-- Link del Evento -->
-
-            <input class="select" type="url" id="linkEvento" placeholder="https://ejemplo.com" required>
-
-            <!-- Botón para enviar -->
-            <button type="submit" class="btn-registrate">Agregar Evento</button>
-        </form>
-    </div>
 
     <footer>
         <p>&copy; Todos los derechos reservados Catamarca Eventos</p>
     </footer>
 
+    <script src="controladores/crearevento.js"></script>
 
 
     <script>
