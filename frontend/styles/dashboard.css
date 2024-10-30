@@ -1,0 +1,56 @@
+.dashboard-main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Estilos para las tarjetas */
+.card {
+    width: 250px;
+    padding: 50px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-top: 50px;
+
+}
+
+/* Animación de hover en las tarjetas */
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Título de las tarjetas */
+.card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 40px;
+
+}
+
+/* Descripción de las tarjetas */
+.card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Botón en las tarjetas */
+.card button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+    background-color: #0056b3;
+}

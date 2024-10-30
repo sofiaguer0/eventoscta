@@ -374,6 +374,68 @@ ServidorWeb.post("/login/admin", async (req, res) => {
 });
 
 
+// Endpoint para obtener usuarios
+ServidorWeb.get("/usuarios", async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+  const offset = (page - 1) * limit;
+
+  const SQL = "SELECT idusuario, nombre, apellido, correo, alias FROM usuario1 LIMIT $1 OFFSET $2";
+  try {
+    const Resultado = await ConexionDB.query(SQL, [limit, offset]);
+    const countResult = await ConexionDB.query("SELECT COUNT(*) FROM usuario1");
+    const totalUsuarios = parseInt(countResult.rows[0].count);
+
+    res.json({
+      result_estado: "ok",
+      result_message: "Usuarios obtenidos",
+      result_data: Resultado.rows,
+      totalUsuarios,
+      totalPages: Math.ceil(totalUsuarios / limit),
+    });
+  } catch (error) {
+    res.json({
+      result_estado: "error",
+      result_message: error.message,
+      result_data: [],
+    });
+  }
+});
+
+
+// Endpoint para obtener usuarios
+ServidorWeb.get("/eventos", async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+  const offset = (page - 1) * limit;
+
+  const SQL = "SELECT idevento, titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento,idusuario FROM eventos LIMIT $1 OFFSET $2";
+  try {
+    const Resultado = await ConexionDB.query(SQL, [limit, offset]);
+    const countResult = await ConexionDB.query("SELECT COUNT(*) FROM eventos");
+    const totalUsuarios = parseInt(countResult.rows[0].count);
+
+    res.json({
+      result_estado: "ok",
+      result_message: "Usuarios obtenidos",
+      result_data: Resultado.rows,
+      totalUsuarios,
+      totalPages: Math.ceil(totalUsuarios / limit),
+    });
+  } catch (error) {
+    res.json({
+      result_estado: "error",
+      result_message: error.message,
+      result_data: [],
+    });
+  }
+});
+
+
+
+
+
+
+
+
 
 ServidorWeb.listen(PORT, () => {
   console.log("Application is running on port", PORT);

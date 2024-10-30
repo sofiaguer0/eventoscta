@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/adminusuario.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -25,24 +28,47 @@
             </div>
         </div>
     </header>
-    
+</div>
+<button id="volver-dashboard" class="btn-volver">Volver al Dashboard</button>
+</div>
 
     <!-- Contenedor principal -->
-    <main class="dashboard-main">
-        <!-- Tarjeta de administración de usuarios -->
-        <div class="card">
-            <h3>Administrar Usuarios</h3>
-            <p></p>
-            <button onclick="window.location.href='adminusuarios.html'">Ir a Usuarios</button>
-        </div>
+    <h2 class="text-center">Lista de Eventos</h2>
+</header>
+<main>
+    <table id="usuarios-table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Lugar</th>
+                <th>Fecha Publicacion</th>
+                <th>Tipo</th>
+                <th>Hora Desde</th>
+                <th>Horas Hasta</th>
+                <th>Enlace Evento</th>
+                <th>Fecha Evento</th>
+                <th>Usuario</th>
 
-        <!-- Tarjeta de administración de eventos -->
-        <div class="card">
-            <h3>Administrar Eventos</h3>
-            <p></p>
-            <button onclick="window.location.href='admineventos.html'">Ir a Eventos</button>
-        </div>
-    </main>
+
+                
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="usuarios-tbody">
+            <!-- Aquí se cargarán los datos de los usuarios -->
+        </tbody>
+    </table>
+    <!-- Paginación -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination" id="pagination">
+            <!-- Botones de paginación dinámicos -->
+        </ul>
+    </nav>
+</main>
+
+<script src="controladores/admineventos.js"></script>
 
     <script>
         const CorreoUsuario = localStorage.getItem('CorreoUsuario');
