@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+        </div>
+        <h2>Dashboard</h2>
+        <div class="header-right">
+            <div class="user-info">
+                <i class="fas fa-user icon"></i>
+                <span id="nombre-usuario">Juan Pérez</span> <!-- Ejemplo del nombre -->
+<!-- Ícono para cerrar sesión -->
+<a href="adminlogin.html" id="cerrar-sesion" style="margin-left: 10px; text-decoration: none; color: white;">
+    <i class="fas fa-sign-out-alt"></i>
+</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú lateral -->
+    
+    
+
+    <script>
+       
+
+        const CorreoUsuario = localStorage.getItem('CorreoUsuario');
+        const idadmin = localStorage.getItem("idadmin");
+
+
+        // Verificar si hay un alias almacenado
+        if (CorreoUsuario) {
+            document.getElementById('nombre-usuario').textContent = CorreoUsuario; // Muestra el alias almacenado
+        } else {
+            document.getElementById('nombre-usuario').textContent = 'Invitado'; // Muestra 'Invitado' si no hay alias
+        }
+
+        
+        function mostrarAlias() {
+            const CorreoUsuario = localStorage.getItem('CorreoUsuario');
+            const idadmin = localStorage.getItem("idadmin");
+
+
+            if (CorreoUsuario) {
+                document.getElementById('nombre-usuario').textContent = CorreoUsuario;
+            } else {
+                document.getElementById('nombre-usuario').textContent = 'Invitado';
+            }
+            if (idadmin) {
+                console.log("ID Usuario:", idadmin); // Puedes mostrar el ID del usuario aquí o usarlo como lo necesites
+            }
+           
+        }
+
+        
+
+        // Evento para cerrar sesión
+        document.getElementById('cerrar-sesion').addEventListener('click', function () {
+            localStorage.removeItem('CorreoUsuario'); // Elimina el alias del localStorage
+            
+            mostrarAlias(); // Actualiza el nombre de usuario
+        });
+
+        // Llamar a la función al cargar la página
+        mostrarAlias();
+
+        
+
+    </script>
+</body>
+<footer>
+    <p>&copy; 2024 Catamarca Eventos. Todos los derechos reservados.</p>
+</footer>
+
+</html>

@@ -434,7 +434,6 @@ body {
     font-size: 14px;
 }
 
-
 .carousel-container {
     position: relative;
     width: 90%;
@@ -446,6 +445,7 @@ body {
 .carousel {
     display: flex;
     transition: transform 0.5s ease;
+    width: 100%;
 }
 
 .carousel-item {
@@ -456,33 +456,33 @@ body {
 
 .carousel-item img {
     width: 100%;
-    height: 250px; /* Ajusta el alto de la imagen */
-    object-fit: cover; /* Mantiene la proporción de aspecto */
+    height: 250px; /* Adjust image height */
+    object-fit: cover; /* Keeps the aspect ratio */
 }
 
 .carousel-text {
     position: absolute;
-    top: 50%; /* Posición del texto verticalmente centrado */
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centra el texto en ambas direcciones */
+    transform: translate(-50%, -50%);
     color: white;
-    font-size: 36px; /* Aumentar el tamaño de la fuente para más visibilidad */
-    font-weight: bold; /* Hacer el texto más grueso */
-    padding: 10px 15px; /* Espaciado del texto */
-    border-radius: 8px; /* Bordes redondeados del fondo */
+    font-size: 28px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
 }
 
 .carousel-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #d95d1e; /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.4);
     border: none;
     padding: 10px;
     cursor: pointer;
-    z-index: 10;
     font-size: 24px;
     color: #f5f5f5;
+    z-index: 10;
 }
 
 .carousel-button.left {
@@ -493,3 +493,6 @@ body {
     right: 10px;
 }
 
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.6); /* Darker on hover */
+}

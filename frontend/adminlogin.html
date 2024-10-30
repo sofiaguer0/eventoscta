@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+</head>
+
+<header>
+    <div class="header-left">
+        <i class="fas fa-bars icon" id="menu-icon"></i>
+    </div>
+    <h2>Catamarca Eventos - Admin</h2>
+    <div class="header-right">
+        <i class="fas fa-bell icon"></i>
+        <a href="iniciarsesion.html">
+            <i class="fas fa-user icon"></i>
+        </a>
+
+    </div>
+</header>
+    <body>
+        <div class="registro-container">
+            <h2>Acceso Administrador</h2>
+            <form id="adminLoginForm">
+                <input type="text" id="txtcorreo" placeholder="Correo Electronico" required>
+                <input type="password" id="txtcontrasena" placeholder="Contraseña" required>
+                <button type="submit" class="btn-registrate">Iniciar Sesión</button>
+            </form>
+            
+           
+            
+        </div>
+     
+
+        <script src="controladores/adminlogin.js"></script>
+
+</body>
+    <footer>
+        <p>&copy;Todos los derechos reservados.</p>
+    </footer>
+</html>

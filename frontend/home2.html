@@ -20,8 +20,10 @@
             <div class="user-info">
                 <i class="fas fa-user icon"></i>
                 <span id="nombre-usuario">Juan Pérez</span> <!-- Ejemplo del nombre -->
-                <button id="cerrar-sesion" style="margin-left: 10px;">Cerrar Sesión</button>
-
+<!-- Ícono para cerrar sesión -->
+<a href="home.html" id="cerrar-sesion" style="margin-left: 10px; text-decoration: none; color: white;">
+    <i class="fas fa-sign-out-alt"></i>
+</a>
             </div>
         </div>
     </header>
@@ -177,6 +179,8 @@
         });
 
         const aliasUsuario = localStorage.getItem('aliasUsuario');
+        const idUsuario = localStorage.getItem("idusuario");
+
 
         // Verificar si hay un alias almacenado
         if (aliasUsuario) {
@@ -185,19 +189,29 @@
             document.getElementById('nombre-usuario').textContent = 'Invitado'; // Muestra 'Invitado' si no hay alias
         }
 
-
+        
         function mostrarAlias() {
             const aliasUsuario = localStorage.getItem('aliasUsuario');
+            const idUsuario = localStorage.getItem("idusuario");
+
+
             if (aliasUsuario) {
                 document.getElementById('nombre-usuario').textContent = aliasUsuario;
             } else {
                 document.getElementById('nombre-usuario').textContent = 'Invitado';
             }
+            if (idUsuario) {
+                console.log("ID Usuario:", idUsuario); // Puedes mostrar el ID del usuario aquí o usarlo como lo necesites
+            }
+           
         }
+
+        
 
         // Evento para cerrar sesión
         document.getElementById('cerrar-sesion').addEventListener('click', function () {
             localStorage.removeItem('aliasUsuario'); // Elimina el alias del localStorage
+            
             mostrarAlias(); // Actualiza el nombre de usuario
         });
 
@@ -205,22 +219,40 @@
         mostrarAlias();
 
         let currentIndex = 0;
-
-        function moveSlide(direction) {
-            const items = document.querySelectorAll('.carousel-item');
-            const totalItems = items.length;
+        const items = document.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+        const intervalTime = 2500; // 3 seconds
         
-            currentIndex += direction;
+        // Function to move to the next or previous slide
+        function moveSlide(step) {
+            currentIndex = (currentIndex + step + totalItems) % totalItems;
+            updateCarousel();
+        }
         
-            if (currentIndex < 0) {
-                currentIndex = totalItems - 1; // Go to last item
-            } else if (currentIndex >= totalItems) {
-                currentIndex = 0; // Go to first item
-            }
-        
-            const offset = -currentIndex * 100; // Calculate the offset
+        // Update the transform property to show the current slide
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
             document.querySelector('.carousel').style.transform = `translateX(${offset}%)`;
         }
+        
+        // Automatically move to the next slide
+        function autoSlide() {
+            moveSlide(1);
+        }
+        
+        // Start the automatic sliding
+        let autoSlideInterval = setInterval(autoSlide, intervalTime);
+        
+        // Stop the sliding on hover
+        document.querySelector('.carousel-container').addEventListener('mouseover', () => {
+            clearInterval(autoSlideInterval);
+        });
+        
+        // Resume sliding when not hovering
+        document.querySelector('.carousel-container').addEventListener('mouseout', () => {
+            autoSlideInterval = setInterval(autoSlide, intervalTime);
+        });
+        
 
     </script>
 </body>

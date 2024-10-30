@@ -1,16 +1,34 @@
-const btnGuardarCambios = document.querySelector("#btnGuardarCambios"); // me vinculo con el boton Guardar Cambios 
+const btnGuardarCambios = document.querySelector("#btnGuardarCambios"); // Vinculamos el botón "Guardar Cambios"
 
+// Escuchamos el evento "submit" en el formulario
+document.getElementById("registroForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Evitamos que el formulario se envíe automáticamente
 
+    // Obtenemos los valores de los campos de contraseña
+    const contrasena = document.getElementById("txtcontrasena").value;
+    const confirmarContrasena = document.getElementById("txtconfirmarContrasena").value;
 
-btnGuardarCambios.addEventListener("click", async () => {
-    let clienteidParaActualizar = txtIdusuario.value; // saco el ID de la caja de texto
-    let clientenombreParaActualizar = txtnombre.value; // saco el CUIT de la caja de texto
-    let clienteapellidoParaActualizar = txtapellido.value; // saco el NOMBRE de la caja de texto
+    // Verificamos si las contraseñas coinciden
+    if (contrasena !== confirmarContrasena) {
+        // Mostramos una alerta con SweetAlert2 si no coinciden las contraseñas
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Las contraseñas no coinciden, por favor intentá de nuevo.',
+                    timer: 1500
+
+        });
+        return; // Salimos de la función para evitar que se continúe con el registro
+    }
+
+    // Si las contraseñas coinciden, seguimos con la lógica para registrar al usuario
+    let clienteidParaActualizar = txtIdusuario.value;
+    let clientenombreParaActualizar = txtnombre.value;
+    let clienteapellidoParaActualizar = txtapellido.value;
     let clientecorreoParaActualizar = txtcorreo.value;
-    let clientealiasParaActualizar = txtalias.value; // saco el NOMBRE de la caja de texto
+    let clientealiasParaActualizar = txtalias.value;
     let clientecontrasenaParaActualizar = txtcontrasena.value;
 
-    /* aqui armo un objeto literal */
     let clienteParaActualizar = {
         nombre: clientenombreParaActualizar,
         apellido: clienteapellidoParaActualizar,
@@ -19,89 +37,64 @@ btnGuardarCambios.addEventListener("click", async () => {
         contrasena: clientecontrasenaParaActualizar
     };
 
-    /* Previo a Insertar / actualizar se debería verificar que el CUIT sea válido, que el nombre no esté vacio, etc */
-
-    if (parseInt(clienteidParaActualizar) === 0) // por el Lado verdadero intento INSERTAR REGISTRO NUEVO
-    {
+    if (parseInt(clienteidParaActualizar) === 0) {
         await fnActualizarCliente(JSON.stringify(clienteParaActualizar), 'POST');
-        alert("insertando uno nuevo");
-    }
-    else // por el Lado Falso MODIFICO UN REGISTRO EXISTENTE
-    {
+        Swal.fire({
+            icon: 'success',
+            title: 'Cuenta creada',
+            text: 'Cuenta creada exitosamente. Inicia sesión ahora.',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.replace('iniciarsesion.html');
+        });
+    } else {
         await fnActualizarCliente(JSON.stringify(clienteParaActualizar), 'PUT');
-        alert("modificando uno existente");
+        Swal.fire({
+            icon: 'success',
+            title: 'Modificación exitosa',
+            text: 'Los datos del usuario se modificaron correctamente.',
+            confirmButtonText: 'OK'
+        });
     }
-}) 
-
-
-
-
-const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
-
-    try {
-        let URLEndPoint = `http://localhost:3000/usuario1/`; // Apunto al End Point Correspondiente
-
-        /* Creo las Opciones del Fetch */
-        const OpcionesDelFetch = {
-            method: VerboHTTP, // le indico el verbo // debe llevar la palabra POST ó PUT
-            headers: {
-                'Content-Type': 'application/json', // En la cabecera le digo que recibirá datos en formato JSON
-            },
-            body: clienteEnFormatoJSON, // En el cuerpo del mensaje envío el Cliente en formato JSON
-        };
-
-        let Resultado = await fetch(URLEndPoint, OpcionesDelFetch); // hago el fetch y le digo que espere a terminar y que devuelva los datos y lo guarde en Resultado
-
-        let Datos = await Resultado.json(); // Convierto el Resultado a formato JSON
-
-        if (Datos.result_estado === 'ok') // Si todo salió bien
-        {
-            if (Datos.result_rows > 0) // Si devolvió mas de un registro
-            {
-                fnActualizarCliente(Datos.result_data); // muestro el cliente completo invocando a la función correspondiente y pasandole como parametro el cliente        
-            }
-        }
-        else {
-            alert(`Se produjo un error en el BACK END: => ${Datos.result_message}`); // Si detecto que hubo un error en el BACK END muestro el error
-        }
-    }
-    catch (error) {
-        alert(`Se produjo un error en el FRONT END: => ${error.message}`); // Si se produjo un error en el FRONTEND lo muestro
-    }
-}
-
-
-
-document.getElementById('registroForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const data = {
-        nombre: document.getElementById('txtnombre').value,
-        apellido: document.getElementById('txtapellido').value,
-        correo: document.getElementById('txtcorreo').value,
-        alias: document.getElementById('txtalias').value,
-        contrasena: document.getElementById('txtcontrasena').value
-    };
-
-    fetch('http://localhost:3000/usuario1/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data); // Verifica el contenido de la respuesta del servidor
-        if (data.result_estado === 'ok') {
-            alert('Cuenta creada exitosamente. Inicia sesión ahora.');
-            console.log('Redirigiendo a la página de inicio de sesión');
-            window.location.replace('iniciarsesion.html'); // Intentamos con replace
-        } else {
-            alert(data.result_message);
-        }
-    })
-    .catch(error => console.error('Error:', error));
 });
 
-  
+/*document.getElementById("registroForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    // Obtén el correo del formulario de registro
+    const email = document.getElementById("txtcorreo").value;
+
+    // Guardar el correo en el localStorage
+    localStorage.setItem("emailToVerify", email);
+
+    // Redirigir a la página de verificación
+    window.location.href = "verifmail.html";
+});
+*/
+
+const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
+    try {
+        let URLEndPoint = `http://localhost:3000/usuario/`;
+
+        const OpcionesDelFetch = {
+            method: VerboHTTP,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: clienteEnFormatoJSON,
+        };
+
+        let Resultado = await fetch(URLEndPoint, OpcionesDelFetch);
+        let Datos = await Resultado.json();
+
+        if (Datos.result_estado === 'ok') {
+            if (Datos.result_rows > 0) {
+                console.log(Datos.result_data);
+            }
+        } else {
+            alert(`Error en el backend: ${Datos.result_message}`);
+        }
+    } catch (error) {
+        alert(`Error en el frontend: ${error.message}`);
+    }
+};

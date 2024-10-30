@@ -20,13 +20,17 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
            // Asegúrate de que esta parte del código se ejecute en el momento adecuado, como al guardar el alias
         const alias = document.getElementById('txtalias').value; // Obtener el valor del campo de texto
         localStorage.setItem('aliasUsuario', alias); // Almacena el alias en localStorage
+        localStorage.setItem('idusuario', data.result_data.idusuario); // Guarda el idusuario del backend
 
-    
-            alert("Inicio de sesión correcto");
-            window.location.href = 'preferencias.html'; // Redirigir a la página de inicio
-        } else {
-            alert(data.result_message);
-        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Inicio de sesion exitoso',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.replace('preferencias.html');
+        });
+    }
     })
     .catch(error => console.error('Error:', error));
 });
