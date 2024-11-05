@@ -18,6 +18,19 @@
       rel="stylesheet"
     />
   </head>
+  <style>
+    
+    .error-message {
+        color: red;
+        font-size: 0.8em;
+        margin-top: 5px;
+        display: none;
+    }
+    
+    .form-control.error {
+        border-color: red;
+    }
+    </style>
 
   <header>
     <div class="header-left">
@@ -72,92 +85,114 @@
 
       <div class="registro-container">
         <h2>Crear Evento</h2>
-        <form id="formEvento">
-          <input type="hidden" id="txtIdevento" value="0" />
-          <input
-            type="text"
-            id="txttitulo"
-            name="titulo"
-            placeholder="Título del evento"
-            required
-          />
+        <form onsubmit="return false" id="formEvento" novalidate>
+          <form id="formEvento" novalidate onsubmit="return false">
 
-          <textarea
-            id="txtdescripcion"
-            name="descripcion"
-            rows="4"
-            placeholder="Descripción"
-            required
-          ></textarea>
-          <input
-            type="text"
-            id="txtlugar"
-            name="lugar"
-            placeholder="Lugar"
-            required
-          />
-          <label for="inputPassword5" class="form-label"
-            >Fecha de Publicacion</label
-          >
-
-          <input
-            type="date"
-            id="txtfechapublicacion"
-            name="fechapublicacion"
-            required
-          />
-
-          <select id="txttipo" class="select" required>
-            <option value="" disabled selected>
-              Selecciona el tipo de evento
-            </option>
-            <option value="1">Música</option>
-            <option value="2">Teatro y Danza</option>
-            <option value="3">Festivales</option>
-            <option value="4">Ferias</option>
-            <option value="5">Talleres</option>
-            <option value="6">Gastronomía</option>
-            <option value="7">Cine</option>
-            <option value="8">Literatura</option>
-            <option value="9">Otros</option>
-          </select>
-
-          <label for="inputPassword5" class="form-label">Hora Desde</label>
-
-          <input type="time" id="txthoradesde" name="horadesde" required />
-          <label for="inputPassword5" class="form-label">Hora Hasta</label>
-
-          <input type="time" id="txthorahasta" name="horahasta" required />
-
-          <input
-            type="url"
-            id="txtlinkevento"
-            name="linkevento"
-            placeholder="Link del evento"
-          />
-
-          <label for="inputPassword5" class="form-label"
-            >Fecha del Evento</label
-          >
-
-          <input type="date" id="txtfecha" name="fecha" required />
-          <label for="inputPassword5" class="form-label">Imagen</label>
-
-          <div class="mb-3">
-            <input class="form-control" type="file" id="formFile" />
-          </div>
-
-          <button    
-
-            type="button"
-            id="btnGuardarCambios"
-            class="btn-registrate"
-           
-          >
-            Crear Evento
-          </button>
+            <input type="hidden" id="txtIdevento" value="0" />
+            
+            <div class="form-group">
+                <input
+                    type="text"
+                    id="txttitulo"
+                    name="titulo"
+                    placeholder="Título del evento"
+                    required
+                    minlength="3"
+                    maxlength="100"
+                />
+                <div id="tituloError" class="error-message">El título es requerido y debe tener entre 3 y 100 caracteres</div>
+            </div>
+    
+            <div class="form-group">
+                <textarea
+                    id="txtdescripcion"
+                    name="descripcion"
+                    rows="4"
+                    placeholder="Descripción"
+                    required
+                    minlength="10"
+                    maxlength="500"
+                ></textarea>
+                <div id="descripcionError" class="error-message">La descripción es requerida y debe tener entre 10 y 500 caracteres</div>
+            </div>
+    
+            <div class="form-group">
+                <input
+                    type="text"
+                    id="txtlugar"
+                    name="lugar"
+                    placeholder="Lugar"
+                    required
+                />
+                <div id="lugarError" class="error-message">El lugar es requerido</div>
+            </div>
+    
+            <div class="form-group">
+                <label for="txtfechapublicacion">Fecha de Publicación</label>
+                <input
+                    type="date"
+                    id="txtfechapublicacion"
+                    name="fechapublicacion"
+                    required
+                />
+                <div id="fechaPublicacionError" class="error-message">La fecha de publicación es requerida</div>
+            </div>
+    
+            <div class="form-group">
+                <select id="txttipo" class="select" required>
+                    <option value="" disabled selected>Selecciona el tipo de evento</option>
+                    <option value="1">Música</option>
+                    <option value="2">Teatro y Danza</option>
+                    <option value="3">Festivales</option>
+                    <option value="4">Ferias</option>
+                    <option value="5">Talleres</option>
+                    <option value="6">Gastronomía</option>
+                    <option value="7">Cine</option>
+                    <option value="8">Literatura</option>
+                    <option value="9">Otros</option>
+                </select>
+                <div id="tipoError" class="error-message">Debes seleccionar un tipo de evento</div>
+            </div>
+    
+            <div class="form-group">
+                <label for="txthoradesde">Hora Desde</label>
+                <input type="time" id="txthoradesde" name="horadesde" required />
+                <div id="horaDesdeError" class="error-message">La hora de inicio es requerida</div>
+            </div>
+    
+            <div class="form-group">
+                <label for="txthorahasta">Hora Hasta</label>
+                <input type="time" id="txthorahasta" name="horahasta" required />
+                <div id="horaHastaError" class="error-message">La hora de finalización es requerida y debe ser posterior a la hora de inicio</div>
+            </div>
+    
+            <div class="form-group">
+                <input
+                    type="url"
+                    id="txtlinkevento"
+                    name="linkevento"
+                    placeholder="Link del evento"
+                />
+                <div id="linkEventoError" class="error-message">El link debe tener un formato válido</div>
+            </div>
+    
+            <div class="form-group">
+                <label for="txtfecha">Fecha del Evento</label>
+                <input type="date" id="txtfecha" name="fecha" required />
+                <div id="fechaError" class="error-message">La fecha del evento es requerida y debe ser posterior a la fecha de publicación</div>
+            </div>
+    
+            <div class="form-group">
+                <label for="formFile">Imagen</label>
+                <input class="form-control" type="file" id="formFile" accept="image/*" />
+                <div id="imagenError" class="error-message">Por favor selecciona una imagen válida</div>
+            </div>
+    
+            <button type="button" id="btnGuardarCambios" class="btn-registrate">
+                Crear Evento
+            </button>
         </form>
-      </div>
+    </div>
 
 </div>
      
@@ -169,6 +204,7 @@
 
     <script src="controladores/crearevento.js"></script>
 
+    
 
     <script>
       const menuIcon = document.getElementById("menu-icon");

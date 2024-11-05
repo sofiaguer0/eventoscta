@@ -340,3 +340,34 @@
 .btn-registrate:hover {
   opacity: 0.8;
 }
+
+/* Agregar estos estilos a tu archivo CSS */
+.estado-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+.estado-pendiente {
+  background-color: #ffd700;
+  color: #000;
+}
+
+.estado-aprobado {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.estado-rechazado {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Ajustar el card-title para acomodar el badge */
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

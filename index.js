@@ -2,6 +2,45 @@ const PORT = process.env.PORT || 3000; // aquí establezco el puerto
 const ClaseExpress = require("express"); // aquí importo la biblioteca express
 const cors = require("cors"); // Importa el paquete cors
 const ServidorWeb = ClaseExpress(); // aquí instancio un obj a partir de la clase express
+const multer = require('multer'); // Agregamos multer
+const path = require('path'); // Agregamos path
+const fs = require('fs'); // Agregamos fs
+
+// Configuración de multer para el almacenamiento de imágenes
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      const uploadDir = 'public/uploads/eventos';
+      // Crear el directorio si no existe
+      if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+      // Generar nombre único para el archivo
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, `evento-${uniqueSuffix}${path.extname(file.originalname)}`);
+  }
+});
+
+// Configurar filtro para solo aceptar imágenes
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+  } else {
+      cb(new Error('El archivo debe ser una imagen'), false);
+  }
+};
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+      fileSize: 5 * 1024 * 1024 // Límite de 5MB
+  }
+});
+
+
 
 
 // Usar CORS en todas las rutas
@@ -11,6 +50,8 @@ ServidorWeb.use(ClaseExpress.static("frontend"));
 ServidorWeb.use(ClaseExpress.json());
 ServidorWeb.use(ClaseExpress.text());
 ServidorWeb.use(ClaseExpress.urlencoded({ extended: false }));
+ServidorWeb.use(ClaseExpress.static("public")); // Agregar esta línea para servir archivos estáticos
+
 
 const { Pool } = require("pg");
 
@@ -24,80 +65,111 @@ const ConexionDB = new Pool({
 
 module.exports = { ConexionDB };
 
-// EVENTO GET
 
-ServidorWeb.post("/eventos/", async (req, res) => {
-  // Agrega este console.log para ver los datos que estás recibiendo en el servidor
-  console.log(req.body);
 
-  const {
-    titulo,
-    descripcion,
-    lugar,
-    fechapublicacion,
-    idtipo,
-    horadesde,
-    horahasta,
-    linkevento,
-    fechaevento,
-    idusuario,
-  } = req.body;
-
-  let SQL =
-    "insert into eventos (titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento, idusuario) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *";
-
-  let Resultado = "";
-
+ServidorWeb.post("/upload-imagen", upload.single('imagen'), (req, res) => {
   try {
-    Resultado = await ConexionDB.query(SQL, [
-      titulo,
-      descripcion,
-      lugar,
-      fechapublicacion,
-      idtipo,
-      horadesde,
-      horahasta,
-      linkevento,
-      fechaevento,
-      idusuario,
-    ]);
+      if (!req.file) {
+          return res.status(400).json({ 
+              result_estado: "error",
+              result_message: "No se subió ningún archivo",
+          });
+      }
+      
+      // Devolver solo el nombre del archivo
+      const imagePath = `/uploads/eventos/${req.file.filename}`;
+      console.log('Ruta de imagen guardada:', imagePath); // Debug
 
-    Salida = {
-      result_estado: "ok",
-      result_message: "Insertado",
-      result_rows: Resultado.rowCount,
-      result_proceso: "POST",
-      result_data: Resultado.rows[0],
-    };
+      res.json({ 
+          result_estado: "ok",
+          result_message: "Imagen subida exitosamente",
+          imagePath: imagePath 
+      });
   } catch (error) {
-    Salida = {
-      result_estado: "error",
-      result_message: error.message,
-      result_rows: 0,
-      result_proceso: "POST",
-      result_data: "",
-    };
+      console.error('Error al subir imagen:', error);
+      res.status(500).json({ 
+          result_estado: "error",
+          result_message: "Error al procesar la imagen" 
+      });
   }
-  res.json(Salida);
 });
+// EVENTO GET
+// POST - Crear evento
+ServidorWeb.post("/eventos/", async (req, res) => {
+    console.log(req.body);
+
+    const {
+        titulo,
+        descripcion,
+        lugar,
+        fechapublicacion,
+        idtipo,
+        horadesde,
+        horahasta,
+        linkevento,
+        fechaevento,
+        idusuario,
+        imagen_path,
+        estado = 'PENDIENTE',
+    } = req.body;
+
+    let SQL =
+        "INSERT INTO eventos (titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento, idusuario, estado, imagen_path) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *";
+
+    let Resultado = "";
+
+    try {
+        Resultado = await ConexionDB.query(SQL, [
+            titulo,
+            descripcion,
+            lugar,
+            fechapublicacion,
+            idtipo,
+            horadesde,
+            horahasta,
+            linkevento,
+            fechaevento,
+            idusuario,
+            estado,
+            imagen_path
+        ]);
+
+        Salida = {
+            result_estado: "ok",
+            result_message: "Insertado",
+            result_rows: Resultado.rowCount,
+            result_proceso: "POST",
+            result_data: Resultado.rows[0],
+        };
+    } catch (error) {
+        Salida = {
+            result_estado: "error",
+            result_message: error.message,
+            result_rows: 0,
+            result_proceso: "POST",
+            result_data: "",
+        };
+    }
+    res.json(Salida);
+});
+
 
 // no se
 // Supongamos que tienes una base de datos conectada y una función que obtiene eventos
 
 //get evento
-
 ServidorWeb.get("/eventos/:ID", async (req, res) => {
   const ID = req.params.ID;
-  let SQL = "select * from eventos where idevento = $1";
+  let SQL = "SELECT *, (SELECT descripcion FROM tipoevento1 WHERE idtipo = eventos.idtipo) as tipoevento1 FROM eventos WHERE idevento = $1";
   let Resultado = "";
 
   try {
     Resultado = await ConexionDB.query(SQL, [ID]);
     Salida = {
       result_estado: "ok",
-      result_message: "usuario recuperado por ID",
+      result_message: "Evento recuperado por ID",
       result_rows: Resultado.rowCount,
-      result_proceso: "GET USUARIO POR ID",
+      result_proceso: "GET EVENTO POR ID",
       result_data: Resultado.rows[0],
     };
   } catch (error) {
@@ -105,7 +177,7 @@ ServidorWeb.get("/eventos/:ID", async (req, res) => {
       result_estado: "error",
       result_message: error.message,
       result_rows: 0,
-      result_proceso: "GET USUARIO POR ID",
+      result_proceso: "GET EVENTO POR ID",
       result_data: "",
     };
   }
@@ -139,6 +211,24 @@ ServidorWeb.get("/usuario1/:ID", async (req, res) => {
   }
   res.json(Salida);
 });
+
+ServidorWeb.get('/eventos/usuario/:idusuario', async (req, res) => {
+  const { idusuario } = req.params;
+
+  try {
+      const query = 'SELECT * FROM eventos WHERE idusuario = $1 ORDER BY fechaevento DESC';
+      const resultado = await ConexionDB.query(query, [idusuario]);
+
+      res.json({ result_estado: 'ok', result_data: resultado.rows });
+  } catch (error) {
+      console.error("Error en la consulta:", error);
+      res.status(500).json({
+          result_estado: 'error',
+          result_message: 'Error en la base de datos'
+      });
+  }
+});
+
 
 // POST de usuario...
 
@@ -400,25 +490,41 @@ ServidorWeb.get("/usuarios", async (req, res) => {
     });
   }
 });
-
-
-// Endpoint para obtener usuarios
+// GET - Obtener todos los eventos con paginación
 ServidorWeb.get("/eventos", async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const offset = (page - 1) * limit;
 
-  const SQL = "SELECT idevento, titulo, descripcion, lugar, fechapublicacion, idtipo, horadesde, horahasta, linkevento, fechaevento,idusuario FROM eventos LIMIT $1 OFFSET $2";
+  const SQL = `
+    SELECT 
+      idevento, 
+      titulo, 
+      descripcion, 
+      lugar, 
+      fechapublicacion, 
+      idtipo, 
+      horadesde, 
+      horahasta, 
+      linkevento, 
+      fechaevento, 
+      idusuario,
+      estado
+    FROM eventos
+    ORDER BY fechaevento ASC
+    LIMIT $1 OFFSET $2
+  `;
+  
   try {
     const Resultado = await ConexionDB.query(SQL, [limit, offset]);
     const countResult = await ConexionDB.query("SELECT COUNT(*) FROM eventos");
-    const totalUsuarios = parseInt(countResult.rows[0].count);
+    const totalEventos = parseInt(countResult.rows[0].count);
 
     res.json({
       result_estado: "ok",
-      result_message: "Usuarios obtenidos",
+      result_message: "Eventos obtenidos",
       result_data: Resultado.rows,
-      totalUsuarios,
-      totalPages: Math.ceil(totalUsuarios / limit),
+      totalEventos,
+      totalPages: Math.ceil(totalEventos / limit),
     });
   } catch (error) {
     res.json({
@@ -429,6 +535,90 @@ ServidorWeb.get("/eventos", async (req, res) => {
   }
 });
 
+ServidorWeb.put("/eventos/:ID/estado", async (req, res) => {
+  try {
+      const ID = req.params.ID;
+      const { estado } = req.body;
+
+      // Validar que el estado sea válido
+      const estadosValidos = ['PENDIENTE', 'APROBADO', 'RECHAZADO'];
+      if (!estadosValidos.includes(estado)) {
+          return res.json({
+              result_estado: "error",
+              result_message: "Estado no válido",
+              result_rows: 0,
+              result_proceso: "PUT ESTADO EVENTO",
+              result_data: "",
+          });
+      }
+
+      // Actualizar el estado en la base de datos
+      const resultUpdate = await ConexionDB.query(
+          "UPDATE eventos SET estado = $1 WHERE idevento = $2 RETURNING *",
+          [estado, ID]
+      );
+
+      // Verificar si se actualizó el evento
+      if (resultUpdate.rowCount === 0) {
+          return res.json({
+              result_estado: "error",
+              result_message: "No se encontró el evento",
+              result_rows: 0,
+              result_proceso: "PUT ESTADO EVENTO",
+              result_data: "",
+          });
+      }
+
+      // Obtener el evento actualizado
+      const resultEvento = await ConexionDB.query(
+          "SELECT * FROM eventos WHERE idevento = $1 LIMIT 1",
+          [ID]
+      );
+
+      const eventoActualizado = resultEvento.rows[0];
+
+      res.json({
+          result_estado: "ok",
+          result_message: "Estado actualizado correctamente",
+          result_rows: resultUpdate.rowCount,
+          result_proceso: "PUT ESTADO EVENTO",
+          result_data: eventoActualizado
+      });
+
+  } catch (error) {
+      console.error("Error en la actualización:", error);
+      res.json({
+          result_estado: "error",
+          result_message: error.message,
+          result_rows: 0,
+          result_proceso: "PUT ESTADO EVENTO",
+          result_data: "",
+      });
+  }
+});
+
+ServidorWeb.use('/uploads', ClaseExpress.static(path.join(__dirname, 'public/uploads')));
+
+// Ruta para obtener eventos aprobados
+ServidorWeb.get('/eventos/aprobados', async (req, res) => {
+  try {
+      const result = await ConexionDB.query(
+          'SELECT * FROM eventos WHERE estado = $1 ORDER BY fechaevento DESC',
+          ['APROBADO']
+      );
+      
+      res.json({
+          result_estado: "ok",
+          result_data: result.rows
+      });
+  } catch (error) {
+      console.error('Error al obtener eventos:', error);
+      res.status(500).json({
+          result_estado: "error",
+          result_message: "Error al obtener eventos"
+      });
+  }
+});
 
 
 

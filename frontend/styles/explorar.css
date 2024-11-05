@@ -1,0 +1,154 @@
+/* Estilos para el contenedor principal */
+.eventos-section {
+    padding: 2rem;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Contenedor del carrusel */
+
+.carousel-container {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+/* Grid de eventos */
+.eventos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Card de evento */
+.event-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+    min-width: 250px;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Imagen del evento */
+.event-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+/* Contenido del evento */
+.event-content {
+    padding: 1rem;
+}
+
+.event-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.event-content p {
+    margin: 0.5rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Botones del carrusel */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.carousel-button:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+.carousel-button.prev {
+    left: 0;
+}
+
+.carousel-button.next {
+    right: 0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .eventos-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .eventos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .eventos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .carousel-container {
+        padding: 0 30px;
+    }
+}
+
+/* Estilo base para el botón de notificación */
+.notification-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+    color: #888; /* Color desactivado */
+    transition: color 0.3s ease;
+}
+
+/* Color de notificación activada */
+.notification-btn.active {
+    color: #ffcc00; /* Color de notificación activa (amarillo) */
+}
+
+.notification-btn:hover {
+    color: #666; /* Color al pasar el mouse */
+}

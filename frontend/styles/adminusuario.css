@@ -79,3 +79,62 @@ header {
 .btn-volver:hover {
     background-color: #0056b3; /* Color más oscuro al pasar el mouse */
 }
+
+/* Estilos para los badges de estado */
+.estado-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+.estado-pendiente {
+    background-color: #ffd700;
+    color: #000;
+}
+
+.estado-aprobado {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.estado-rechazado {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Estilos para los botones */
+.aprobar, .rechazar {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 4px;
+}
+
+.aprobar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.aprobar:hover {
+    background-color: #45a049;
+}
+
+.rechazar {
+    background-color: #f44336;
+    color: white;
+}
+
+.rechazar:hover {
+    background-color: #da190b;
+}
+
+/* Ajustes para la tabla */
+td {
+    vertical-align: middle;
+}

@@ -1,14 +1,11 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  // ID del evento que quieres cargar al iniciar la página
-  const idevento = 82;
-
-  // Llamamos a la función que carga el evento por su ID
+// Esta función es llamada cuando se hace clic en el botón de editar
+const cargarEventoParaEdicion = async (idevento) => {
   await fnCargarEvento(idevento);
-});
+};
 
+// Esta función carga los detalles del evento para editarlo
 const fnCargarEvento = async (idevento) => {
   try {
-    // Hacemos una petición GET al servidor, enviando el id del evento
     const response = await fetch(`http://localhost:3000/eventos/${idevento}`, {
       method: "GET",
       headers: {
@@ -16,12 +13,10 @@ const fnCargarEvento = async (idevento) => {
       },
     });
 
-    // Convertimos la respuesta a formato JSON
     const evento = await response.json();
 
-    // Verificamos si la respuesta contiene datos válidos
     if (evento.result_estado === "ok") {
-      fnMostrarProducto(evento.result_data); // Llamamos a la función para mostrar los datos en el formulario
+      fnMostrarProducto(evento.result_data);
     } else {
       alert(`Error al cargar el evento: ${evento.result_message}`);
     }
@@ -29,6 +24,7 @@ const fnCargarEvento = async (idevento) => {
     alert(`Se produjo un error en la carga del evento: ${error.message}`);
   }
 };
+
 const fnMostrarProducto = (eventos) => {
   txtIdevento.value = eventos.idevento;
   txttitulo.value = eventos.titulo;
@@ -137,3 +133,15 @@ const fnActualizarCliente = async (articuloEnFormatoJSON, verboHTTP) => {
     alert(`Se produjo un error en el FRONT END: ${error.message}`);
   }
 };
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Obtener el ID del evento desde la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const idevento = urlParams.get("id");
+
+  // Verificar si hay un ID de evento en la URL y cargar el evento
+  if (idevento) {
+    await fnCargarEvento(idevento);
+  }
+});

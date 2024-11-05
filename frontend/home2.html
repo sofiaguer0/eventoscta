@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catamarca Eventos - Home</title>
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/explorar.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
@@ -33,9 +37,8 @@
         <nav>
             <ul>
                 <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
-                <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
                 <li><a href="calendar-20/index.html"><i class="fas fa-calendar"></i>Calendario</a></li>
-                <li><a href="#"><i class="fas fa-map"></i>Explorar</a></li>
+                <li><a href="explorar.html"><i class="fas fa-map"></i>Explorar</a></li>
                 <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
                 <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
                 <li><a href="miseventos.html"><i class="fas fa-calendar-check"></i> Mis eventos</a></li>
@@ -165,8 +168,27 @@
             </div>
         </div>
     </div>
+    <div class="main-events">
+        <div class="events-cards">
+
+            <section class="eventos-section">
+                <h2>Eventos Recientes</h2>
+                <div class="carousel-container">
+                    <button class="carousel-button prev">←</button>
+                    <div class="eventos-grid" id="eventos-container">
+                        <!-- Aquí se cargarán las cards dinámicamente -->
+                    </div>
+                    <button class="carousel-button next">→</button>
+                </div>
+            </section>
+           
+            
+            
+        </div>
+    </div>
 
     
+    <script src="controladores/explorareventos.js"></script> <!-- Tu archivo JS específico -->
 
     <script>
         const menuIcon = document.getElementById('menu-icon');

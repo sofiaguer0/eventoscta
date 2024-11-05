@@ -35,106 +35,51 @@
     <!-- Menú lateral -->
     <div class="sidebar" id="sidebar">
         <nav>
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
-                <li><a href="#"><i class="fas fa-user"></i>Mi perfil</a></li>
-                <li><a href="calendar-20/index.html"><i class="fas fa-calendar"></i>Calendario</a></li>
-                <li><a href="#"><i class="fas fa-map"></i>Explorar</a></li>
-                <li><a href="mapa.html"><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a></li>
-                <li><a href="crearevento.html"><i class="fas fa-plus-circle"></i>Crear evento</a></li>
-                <li><a href="miseventos.html"><i class="fas fa-calendar-check"></i> Mis eventos</a></li>
-
-            </ul>
+          <ul>
+            <li>
+              <a href="home2.html"><i class="fas fa-home"></i>Inicio</a>
+            </li>
+            <li>
+              <a href="calendar-20/index.html"
+                ><i class="fas fa-calendar"></i>Calendario</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-tags"></i>Categorías</a>
+            </li>
+            <li>
+              <a href="mapa.html"
+                ><i class="fas fa-map-marker-alt"></i>Mapa de eventos</a
+              >
+            </li>
+            <li>
+              <a href="crearevento.html"
+                ><i class="fas fa-plus-circle"></i>Crear evento</a
+              >
+            </li>
+          </ul>
         </nav>
-    </div>
+      </div>
     <main class="eventos-main">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card card-margin">
-                    <div class="card-header no-border">
-                        <h5 class="card-title">TIPO EVENTO</h5>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="widget-49">
-                            <div class="widget-49-title-wrapper">
-                                <div class="widget-49-date-primary">
-                                    <span class="widget-49-date-day">09</span>
-                                    <span class="widget-49-date-month">apr</span>
-                                </div>
-                                <div class="widget-49-meeting-info">
-                                    <span class="widget-49-pro-title">TITULO EVENTO</span>
-                                    <span class="widget-49-meeting-time">Hora desde</span> 
-                                    <span class="widget-49-meeting-time">Hora Hasta</span>
+        <div id="contenedor-eventos" class="row"></div>
 
-                                </div>
-                            </div>
-                            <ol class="widget-49-meeting-points">
-                                <li class="widget-49-meeting-item"><span>Ubicacion</span></li>
-                           
-                            </ol>
-                            <div class="widget-49-meeting-action">
-                                <a href="detallevento.html"><button type="button" class="btn-registrate" >Ver más detalles</button></a>
-                                <a href="editarevento.html">
-                                    <button type="button" class="btn-registrate btn-editar">Editar</button>
-                                </a>
-                                <a>
-                                    <button onclick="fnEliminarEvento(83) " type="button" class="btn-registrate btn-eliminar">Eliminar</button>
-                                </a>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card card-margin">
-                    <div class="card-header no-border">
-                        <h5 class="card-title">TIPO EVENTO</h5>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="widget-49">
-                            <div class="widget-49-title-wrapper">
-                                <div class="widget-49-date-primary">
-                                    <span class="widget-49-date-day">09</span>
-                                    <span class="widget-49-date-month">apr</span>
-                                </div>
-                                <div class="widget-49-meeting-info">
-                                    <span class="widget-49-pro-title">TITULO EVENTO</span>
-                                    <span class="widget-49-meeting-time">Hora desde</span> 
-                                    <span class="widget-49-meeting-time">Hora Hasta</span>
-
-                                </div>
-                            </div>
-                            <ol class="widget-49-meeting-points">
-                                <li class="widget-49-meeting-item"><span>Ubicacion</span></li>
-                           
-                            </ol>
-                            <div class="widget-49-meeting-action">
-                                <a href="detallevento.html"><button type="button" class="btn-registrate" >Ver más detalles</button></a>
-                                <a href="detallevento.html">
-                                    <button type="button" class="btn-registrate btn-editar">Editar</button>
-                                </a>
-                                <a">
-                                    <button  type="button" class="btn-registrate btn-eliminar">Eliminar</button>
-                                </a>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
 </main>
 
     
 <script src="controladores/miseventos.js"></script>
 
-<script> const aliasUsuario = localStorage.getItem('aliasUsuario');
+<script>  const menuIcon = document.getElementById('menu-icon');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    menuIcon.addEventListener('click', function () {
+        sidebar.classList.toggle('active');
+        content.classList.toggle('shifted');
+    });
+
+    const aliasUsuario = localStorage.getItem('aliasUsuario');
+    const idUsuario = localStorage.getItem("idusuario");
+
 
     // Verificar si hay un alias almacenado
     if (aliasUsuario) {
@@ -143,19 +88,29 @@
         document.getElementById('nombre-usuario').textContent = 'Invitado'; // Muestra 'Invitado' si no hay alias
     }
 
-
+    
     function mostrarAlias() {
         const aliasUsuario = localStorage.getItem('aliasUsuario');
+        const idUsuario = localStorage.getItem("idusuario");
+
+
         if (aliasUsuario) {
             document.getElementById('nombre-usuario').textContent = aliasUsuario;
         } else {
             document.getElementById('nombre-usuario').textContent = 'Invitado';
         }
+        if (idUsuario) {
+            console.log("ID Usuario:", idUsuario); // Puedes mostrar el ID del usuario aquí o usarlo como lo necesites
+        }
+       
     }
+
+    
 
     // Evento para cerrar sesión
     document.getElementById('cerrar-sesion').addEventListener('click', function () {
         localStorage.removeItem('aliasUsuario'); // Elimina el alias del localStorage
+        
         mostrarAlias(); // Actualiza el nombre de usuario
     });
 

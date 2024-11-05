@@ -1,117 +1,248 @@
-const btnGuardarCambios = document.querySelector("#btnGuardarCambios"); // me vinculo con el boton Guardar Cambios 
-
-let clientetipoParaActualizar = txttipo.value; // Captura el idtipo seleccionado
-
-const successModal = document.getElementById("successModal");
-
-
-btnGuardarCambios.addEventListener("click", async () => {
-
-
-
-    let clienteidParaActualizar = txtIdevento.value; // saco el ID de la caja de texto
-    let clientetituloParaActualizar = txttitulo.value; // saco el CUIT de la caja de texto
-    let clientedescripcionParaActualizar = txtdescripcion.value; // saco el NOMBRE de la caja de texto
-    let clientelugarParaActualizar = txtlugar.value;
-    let clientefechapublicacionParaActualizar = txtfechapublicacion.value; // saco el NOMBRE de la caja de texto
-    let clientetipoParaActualizar = txttipo.value;
-    let clientehoradesdeParaActualizar = txthoradesde.value;
-    let clientehorahastaParaActualizar = txthorahasta.value;
-    let clientelinkeventoParaActualizar = txtlinkevento.value;
-    let clientefechaParaActualizar = txtfecha.value;
-    
-    
-
-
-    let idusuario = localStorage.getItem('idusuario'); // Obtener el ID del usuario autenticado
-
-    let evento = {
-        titulo: txttitulo.value,
-        descripcion: txtdescripcion.value,
-        lugar: txtlugar.value,
-        fechapublicacion: txtfechapublicacion.value,
-        idtipo: txttipo.value,
-        horadesde: txthoradesde.value,
-        horahasta: txthorahasta.value,
-        linkevento: txtlinkevento.value,
-        fechaevento: txtfecha.value,
-        idusuario: idusuario // Asegúrate de incluir el idusuario
-    };
-    /* Previo a Insertar / actualizar se debería verificar que el CUIT sea válido, que el nombre no esté vacio, etc */
-
-    if (parseInt(clienteidParaActualizar) === 0) // por el Lado verdadero intento INSERTAR REGISTRO NUEVO
-    {
-
-        await fnActualizarCliente(JSON.stringify(evento), 'POST');
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Evento creado con éxito',
-            text: 'Su evento ha sido creado, se le notificará cuando sea aprobado.',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            window.location.replace('miseventos.html');
-        });
-
-
-
-    }
-    else // por el Lado Falso MODIFICO UN REGISTRO EXISTENTE
-    {
-        await fnActualizarCliente(JSON.stringify(evento), 'PUT');
-        //alert("modificando uno existente");
-    }
-}) 
-
-
- 
-
-const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
+async function subirImagen(imageFile) {
+    const formData = new FormData();
+    formData.append('imagen', imageFile);
 
     try {
-        let URLEndPoint = `http://localhost:3000/eventos/`; // Apunto al End Point Correspondiente
+        const response = await fetch('http://localhost:3000/upload-imagen', {
+            method: 'POST',
+            body: formData
+        });
 
-        /* Creo las Opciones del Fetch */
-        const OpcionesDelFetch = {
-            method: VerboHTTP, // le indico el verbo // debe llevar la palabra POST ó PUT
-            headers: {
-                'Content-Type': 'application/json', // En la cabecera le digo que recibirá datos en formato JSON
-            },
-            body: clienteEnFormatoJSON, // En el cuerpo del mensaje envío el Cliente en formato JSON
-        };
-
-        let Resultado = await fetch(URLEndPoint, OpcionesDelFetch); // hago el fetch y le digo que espere a terminar y que devuelva los datos y lo guarde en Resultado
-
-        let Datos = await Resultado.json(); // Convierto el Resultado a formato JSON
-        console.log(Datos); // Agrega el console.log para ver los datos recibidos
-
-
-        if (Datos.result_estado === 'ok') // Si todo salió bien
-        {               
-
-
-            if (Datos.result_rows > 0) // Si devolvió mas de un registro
-            {       
-                fnActualizarCliente(Datos.result_data); // muestro el cliente completo invocando a la función correspondiente y pasandole como parametro el cliente 
-
-            }
-
-
+        if (!response.ok) {
+            throw new Error('Error al subir la imagen');
         }
-        else {
-          //  alert(`Se produjo un error en el BACK END: => ${Datos.result_message}`); // Si detecto que hubo un error en el BACK END muestro el error
-        }
-    }
-    catch (error) {
-      //  alert(`Se produjo un error en el FRONT END: => ${error.message}`); // Si se produjo un error en el FRONTEND lo muestro
+
+        const data = await response.json();
+        return data.imagePath; // Retorna la ruta de la imagen en el servidor
+    } catch (error) {
+        console.error('Error al subir imagen:', error);
+        throw error;
     }
 }
 
-function showModal() {
-    document.getElementById("successModal").style.display = "flex";
-  }
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formEvento');
+    const btnGuardarCambios = document.querySelector("#btnGuardarCambios");
 
-  function closeModal() {
-    document.getElementById("successModal").style.display = "none";
-  }
- 
+    // Funciones de validación
+    function validarHoras() {
+        const horaDesde = document.getElementById('txthoradesde').value;
+        const horaHasta = document.getElementById('txthorahasta').value;
+        
+        if (horaDesde && horaHasta) {
+            if (horaHasta <= horaDesde) {
+                mostrarError('horaHasta', 'La hora de finalización debe ser posterior a la hora de inicio');
+                return false;
+            }
+            ocultarError('horaHasta');
+            return true;
+        }
+        return true;
+    }
+
+    function validarFechas() {
+        const fechaPublicacion = new Date(document.getElementById('txtfechapublicacion').value);
+        const fechaEvento = new Date(document.getElementById('txtfecha').value);
+        
+        if (fechaPublicacion && fechaEvento) {
+            if (fechaEvento < fechaPublicacion) {
+                mostrarError('fecha', 'La fecha del evento debe ser posterior a la fecha de publicación');
+                return false;
+            }
+            ocultarError('fecha');
+            return true;
+        }
+        return true;
+    }
+
+    function mostrarError(campo, mensaje) {
+        const errorDiv = document.getElementById(campo + 'Error');
+        errorDiv.textContent = mensaje;
+        errorDiv.style.display = 'block';
+    }
+
+    function ocultarError(campo) {
+        const errorDiv = document.getElementById(campo + 'Error');
+        errorDiv.style.display = 'none';
+    }
+
+    function validarFormulario() {
+        let esValido = true;
+
+        // Validar título
+        const titulo = document.getElementById('txttitulo');
+        if (!titulo.value || titulo.value.length < 3 || titulo.value.length > 100) {
+            mostrarError('titulo', 'El título es requerido y debe tener entre 3 y 100 caracteres');
+            esValido = false;
+        } else {
+            ocultarError('titulo');
+        }
+
+        // Validar descripción
+        const descripcion = document.getElementById('txtdescripcion');
+        if (!descripcion.value || descripcion.value.length < 10 || descripcion.value.length > 500) {
+            mostrarError('descripcion', 'La descripción es requerida y debe tener entre 10 y 500 caracteres');
+            esValido = false;
+        } else {
+            ocultarError('descripcion');
+        }
+
+        // Validar lugar
+        const lugar = document.getElementById('txtlugar');
+        if (!lugar.value) {
+            mostrarError('lugar', 'El lugar es requerido');
+            esValido = false;
+        } else {
+            ocultarError('lugar');
+        }
+
+        // Validar tipo
+        const tipo = document.getElementById('txttipo');
+        if (!tipo.value) {
+            mostrarError('tipo', 'Debes seleccionar un tipo de evento');
+            esValido = false;
+        } else {
+            ocultarError('tipo');
+        }
+
+        // Validar link (si se proporciona)
+        const link = document.getElementById('txtlinkevento');
+        if (link.value && !link.value.match(/^(http|https):\/\/[^ "]+$/)) {
+            mostrarError('linkEvento', 'El link debe tener un formato válido');
+            esValido = false;
+        } else {
+            ocultarError('linkEvento');
+        }
+
+        // Validar imagen
+        const imagen = document.getElementById('formFile');
+        if (imagen.files.length > 0) {
+            const file = imagen.files[0];
+            if (!file.type.startsWith('image/')) {
+                mostrarError('imagen', 'El archivo debe ser una imagen');
+                esValido = false;
+            } else {
+                ocultarError('imagen');
+            }
+        }
+
+        // Validar horas y fechas
+        if (!validarHoras()) esValido = false;
+        if (!validarFechas()) esValido = false;
+
+        return esValido;
+    }
+
+    // Event listeners para validación en tiempo real
+    document.getElementById('txthoradesde').addEventListener('change', validarHoras);
+    document.getElementById('txthorahasta').addEventListener('change', validarHoras);
+    document.getElementById('txtfechapublicacion').addEventListener('change', validarFechas);
+    document.getElementById('txtfecha').addEventListener('change', validarFechas);
+
+    // Manejador principal del botón guardar
+    btnGuardarCambios.addEventListener("click", async (event) => {
+
+        event.preventDefault();
+
+        if (!validarFormulario()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de validación',
+                text: 'Por favor, revisa todos los campos requeridos.',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        try {
+            let clienteidParaActualizar = txtIdevento.value;
+            let idusuario = localStorage.getItem('idusuario');
+
+            const imageFile = document.getElementById('formFile').files[0];
+            let imagePath = null;
+
+            if (imageFile) {
+                imagePath = await subirImagen(imageFile);
+            }
+
+            let evento = {
+                titulo: txttitulo.value,
+                descripcion: txtdescripcion.value,
+                lugar: txtlugar.value,
+                fechapublicacion: txtfechapublicacion.value,
+                idtipo: txttipo.value,
+                horadesde: txthoradesde.value,
+                horahasta: txthorahasta.value,
+                linkevento: txtlinkevento.value,
+                fechaevento: txtfecha.value,
+                idusuario: idusuario,
+                imagen_path: imagePath 
+            };
+
+            if (parseInt(clienteidParaActualizar) === 0) {
+                await fnActualizarCliente(JSON.stringify(evento), 'POST');
+                
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Evento creado con éxito',
+                    text: 'Su evento ha sido creado, se le notificará cuando sea aprobado.',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+                
+                window.location.href = 'miseventos.html';
+            } else {
+                await fnActualizarCliente(JSON.stringify(evento), 'PUT');
+                
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Evento actualizado con éxito',
+                    text: 'El evento ha sido actualizado correctamente.',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+                
+                window.location.href = 'miseventos.html';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al procesar el evento. Por favor, intente nuevamente.',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+});
+// Función para realizar la actualización o inserción de cliente
+const fnActualizarCliente = async (clienteEnFormatoJSON, VerboHTTP) => {
+    try {
+        let URLEndPoint = `http://localhost:3000/eventos/`;
+
+        const OpcionesDelFetch = {
+            method: VerboHTTP,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: clienteEnFormatoJSON,
+        };
+
+        let Resultado = await fetch(URLEndPoint, OpcionesDelFetch);
+        let Datos = await Resultado.json();
+        console.log(Datos);
+
+        if (Datos.result_estado === 'ok') {
+            if (Datos.result_rows > 0) {
+                fnActualizarCliente(Datos.result_data);
+            }
+        } else {
+            throw new Error(Datos.result_message);
+        }
+    } catch (error) {
+        console.error('Error en la operación:', error);
+        throw error;
+    }
+};
