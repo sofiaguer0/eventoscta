@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styles/notificacion.css">
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/explorar.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
 
@@ -46,23 +48,12 @@
         </nav>
     </div>
     
-
-   <body>
-    <div class="notification-settings">
-        <h2>Configurar Notificación para el Evento</h2>
-        <div id="evento-detalle" class="evento-detalle"></div>
-
-        <p>Seleccione cuándo desea recibir notificaciones:</p>
-        <label>
-            <input type="checkbox" id="notify-3days" checked>
-            3 días antes
-        </label>
-        <label>
-            <input type="checkbox" id="notify-1day" checked>
-            1 día antes
-        </label>
-        <button onclick="guardarNotificacion()">Guardar Configuración</button>
-    </div>
+    <body>
+        <div class="container">
+            <div class="notification-card">
+                <div id="notificaciones-container"></div>
+            </div>
+        </div>
         <script src="controladores/notificacion.js"></script>
  
 

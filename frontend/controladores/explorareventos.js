@@ -152,24 +152,34 @@ document.addEventListener('DOMContentLoaded', cargarEventosAprobados);
 // Actualizar eventos cada minuto
 setInterval(cargarEventosAprobados, 60000);
 // Tu función existente de agregarEventoAlDOM con una pequeña modificación
-function agregarEventoAlDOM(eventos) {
+function agregarEventoAlDOM(evento) {  // Cambiado de eventos a evento
     const eventosContainer = document.getElementById('eventos-container');
     const nuevoEventoDiv = document.createElement('div');
     
     nuevoEventoDiv.className = 'event-card';
     nuevoEventoDiv.innerHTML = `
         <div class="event-image">
-        <img src="${evento.imagen_path}" 
-             alt="${evento.titulo}"
-             onerror="this.src='https://via.placeholder.com/300x200?text=Imagen+no+disponible'">
-        <div class="event-tag">${evento.tipo}</div>
-    </div>
+            <img src="${evento.imagen_path}" 
+                 alt="${evento.titulo}"
+                 onerror="this.src='https://via.placeholder.com/300x200?text=Imagen+no+disponible'">
+            <div class="event-tag">${evento.tipo}</div>
+        </div>
         <div class="event-content">
-            <h3>${eventos.titulo}</h3>
-            <p><strong>Fecha:</strong> ${eventos.fechaevento}</p>
-            <p><strong>Ubicación:</strong> ${eventos.lugar}</p>
-            <button onclick="verDetallesEvento(${eventos.id})">Ver más detalles</button>
-             onclick="toggleNotificacion(evento)"
+            <h3>${evento.titulo}</h3>
+            <p><strong>Fecha:</strong> ${evento.fechaevento}</p>
+            <p><strong>Ubicación:</strong> ${evento.lugar}</p>
+            <div class="event-buttons">
+                <button onclick="verDetallesEvento(${evento.id})">Ver más detalles</button>
+                <button onclick="toggleNotificacion({
+                    id: ${evento.id},
+                    tipo: '${evento.tipo}',
+                    titulo: '${evento.titulo}',
+                    fechaevento: '${evento.fechaevento}',
+                    lugar: '${evento.lugar}'
+                })" class="notification-btn">
+                    <i class="fas fa-bell"></i> Activar notificación
+                </button>
+            </div>
         </div>
     `;
     
@@ -182,15 +192,18 @@ function verDetallesEvento(eventoId) {
     // Por ejemplo, redirigir a una página de detalles
     window.location.href = `detalles-evento.html?id=${eventoId}`;
 }
-
 function toggleNotificacion(evento) {
-    console.log("Evento antes de guardarlo en localStorage:", evento); // Verifica el evento
-
-    const isNotificationActive = localStorage.getItem('eventoNotificacion') !== null;
-
-    if (!isNotificationActive) {
-        localStorage.setItem('eventoNotificacion', JSON.stringify(evento));
-        console.log('Evento guardado en localStorage:', evento);
+    console.log("Evento antes de guardarlo en localStorage:", evento);
+    
+    // Obtener array de notificaciones activas
+    let notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || [];
+    const eventoExistente = notificaciones.find(n => n.id === evento.id);
+    
+    if (!eventoExistente) {
+        // Agregar nueva notificación
+        notificaciones.push(evento);
+        localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+        
         Swal.fire({
             icon: 'success',
             title: 'Notificación guardada',
@@ -200,14 +213,21 @@ function toggleNotificacion(evento) {
             window.location.href = 'notificacion.html';
         });
     } else {
-        localStorage.removeItem('eventoNotificacion');
         Swal.fire({
             icon: 'info',
-            title: 'Notificación desactivada',
-            text: 'La notificación ha sido desactivada.'
+            title: 'La notificación ya está activa',
+            text: '¿Deseas ir a la página de notificaciones?',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'notificacion.html';
+            }
         });
     }
 }
+
 
 function verificarImagen(evento) {
     console.log('Ruta de imagen:', evento.imagen_path);

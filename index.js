@@ -622,6 +622,50 @@ ServidorWeb.get('/eventos/aprobados', async (req, res) => {
 
 
 
+ServidorWeb.post('/notificaciones', async (req, res) => {
+  try {
+      const { idusuario, idevento, fecha_notificacion, tipo, mensaje } = req.body;
+      const result = await pool.query(
+          `INSERT INTO notificaciones (idusuario, idevento, fecha_notificacion, tipo, mensaje) 
+           VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+          [idusuario, idevento, fecha_notificacion, tipo, mensaje]
+      );
+      res.status(201).json(result.rows[0]);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al crear la notificación' });
+  }
+});
+
+// Obtener todas las notificaciones de un usuario
+ServidorWeb.get('/notificaciones/:idusuario', async (req, res) => {
+  try {
+      const { idusuario } = req.params;
+      const result = await pool.query(
+          `SELECT * FROM notificaciones WHERE idusuario = $1`,
+          [idusuario]
+      );
+      res.status(200).json(result.rows);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al obtener notificaciones' });
+  }
+});
+
+// Eliminar una notificación específica
+ServidorWeb.delete('/notificaciones/:idnoti', async (req, res) => {
+  try {
+      const { idnoti } = req.params;
+      await pool.query(`DELETE FROM notificaciones WHERE idnoti = $1`, [idnoti]);
+      res.status(200).json({ message: 'Notificación eliminada' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al eliminar la notificación' });
+  }
+});
+
+
+
 
 
 
